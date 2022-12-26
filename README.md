@@ -11,9 +11,9 @@
 
 ## Project Timeline
 
-👉 ### Project Data, Folder Structures and Utilities
+### Project Data, Folder Structures and Utilities
 
-- Data models and response handling utilities
+👉  Data models and response handling utilities
 
 ### Library Implementations
 
