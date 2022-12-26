@@ -13,16 +13,16 @@
 
 ### Project Data, Folder Structures and Utilities
 
-👉  Data models and response handling utilities
+✔️  Data models and response handling utilities
 
 ### Library Implementations
 
-- React Router: Authentication check and page transitions
-- Redux: Structure establishment and authentication state management
+✔️ React Router: Authentication check and page transitions
+✔️ Redux: Structure establishment and authentication state management
 
 ### Login Page
 
-- Handle log-in, log-out process
+👉 Handle log-in, log-out process
 - Store login information with cookies
 
 ### Signup Page
