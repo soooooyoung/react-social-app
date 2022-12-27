@@ -1,39 +1,21 @@
 import { Layout, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { useEffect } from "react";
-import { useCheckAuthentication } from "./api/auth";
-import { selectAuth, setIsAuthenticated } from "./app/authSlice";
+import { useCheckAuth } from "./api/auth";
+import { selectAuth } from "./app/authSlice";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { AppHeader } from "./components/AppHeader";
-import { AppSider } from "./components/AppSider";
 import { Router } from "./components/Router";
-import { showErrorModal } from "./utils/responseUtils";
+import { persistStore } from "redux-persist";
+import { useEffect } from "react";
+import { ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
+import Cookies from "js-cookie";
 
 const { useToken } = theme;
 
 function App() {
   const dispatch = useAppDispatch();
-  const { isAuthenticated, authToken } = useAppSelector(selectAuth);
-  const {
-    data: checkAuthToken,
-    status,
-    error,
-  } = useCheckAuthentication(authToken, {
-    enabled: isAuthenticated,
-  });
+  const { isAuthenticated } = useAppSelector(selectAuth);
   const { token } = useToken();
-
-  useEffect(() => {
-    if (!checkAuthToken) {
-      dispatch(setIsAuthenticated(false));
-    }
-  }, [checkAuthToken, dispatch]);
-
-  useEffect(() => {
-    if (status === "error") {
-      dispatch(setIsAuthenticated(false));
-    }
-  }, [status, error, dispatch]);
 
   return (
     <Layout className="wrapper">
@@ -41,7 +23,6 @@ function App() {
         <AppHeader className="header" style={{ color: token.colorPrimary }} />
       )}
       <Layout>
-        {/* {isAuthenticated && <AppSider className="sider" />} */}
         <Content className="content">
           <Router />
         </Content>

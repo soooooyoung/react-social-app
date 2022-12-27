@@ -1,19 +1,40 @@
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Form, Input, Space, Spin } from "antd";
+import { redirect } from "react-router-dom";
+import { AxiosResponse } from "axios";
+import Cookies from "js-cookie";
+import { useAppDispatch } from "../app/hooks";
 import { useLogin } from "../api/auth";
-import { LoginParams } from "../models";
+import { setAuth } from "../app/authSlice";
+import { showErrorModal } from "../utils/responseUtils";
+import { AuthResponse, LoginParams } from "../models";
 import "./SigninPage.css";
 
 export const SigninPage = () => {
+  const dispatch = useAppDispatch();
   const { mutateAsync, isLoading } = useLogin();
 
   const onFinish = async (values: LoginParams) => {
-    const response = await mutateAsync(values);
-    console.log(response);
+    await mutateAsync(values, {
+      onError: (e) => {
+        showErrorModal(e);
+      },
+      onSuccess: (data) => {
+        const response = data as AxiosResponse<AuthResponse>;
+        if (response.data.success && response.data.result.authToken) {
+          dispatch(setAuth(response.data));
+          Cookies.set("token", response.data.result.authToken);
+          redirect("/");
+        } else {
+          showErrorModal();
+        }
+        return data;
+      },
+    });
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+  const onFinishFailed = () => {
+    showErrorModal();
   };
 
   return (
@@ -57,11 +78,11 @@ export const SigninPage = () => {
             <Space direction="horizontal">
               <Form.Item>
                 <Button type="primary" htmlType="submit">
-                  Submit
+                  Login
                 </Button>
               </Form.Item>
               <Form.Item>
-                <Button>Join</Button>
+                <Button disabled>Join</Button>
               </Form.Item>
             </Space>
           </Form>

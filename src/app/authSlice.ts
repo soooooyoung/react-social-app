@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../app/rootReducer";
-import { Auth } from "../models";
+import { Auth, AuthResponse } from "../models";
 
 const initialState: Auth = { isAuthenticated: false };
 
@@ -9,11 +9,18 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    setAuthToken: (state, { payload }: PayloadAction<string>) => {
-      state.authToken = payload;
-    },
-    setIsAuthenticated: (state, { payload }: PayloadAction<boolean>) => {
-      state.isAuthenticated = payload;
+    setAuth: (state, { payload }: PayloadAction<AuthResponse>) => {
+      if (
+        !payload.success ||
+        !payload.result.authToken ||
+        !payload.result.user
+      ) {
+        state = initialState;
+        return;
+      }
+      state.isAuthenticated = payload.success;
+      state.authToken = payload.result.authToken;
+      state.user = payload.result.user;
     },
   },
   extraReducers: (builder) => {},
@@ -21,6 +28,6 @@ const authSlice = createSlice({
 
 export const selectAuth = (state: RootState) => state.auth;
 
-export const { setAuthToken, setIsAuthenticated } = authSlice.actions;
+export const { setAuth } = authSlice.actions;
 
 export default authSlice;

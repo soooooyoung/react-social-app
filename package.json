@@ -15,6 +15,7 @@
     "@types/react-dom": "^18.0.0",
     "antd": "^5.1.1",
     "axios": "^1.2.1",
+    "js-cookie": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
@@ -49,6 +50,8 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^4.6.0"
+    "@types/js-cookie": "^3.0.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "redux-persist": "^6.0.0"
   }
 }

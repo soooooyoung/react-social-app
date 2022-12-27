@@ -6,9 +6,15 @@ import { useAppSelector } from "../app/hooks";
 export const ProtectedRoutes = (props: RoutesProps) => {
   const { isAuthenticated } = useAppSelector(selectAuth);
   const { pathname } = useLocation();
+  const isProtected = !UnprotectedPaths.find((path) => path === pathname);
 
-  if (!isAuthenticated && !UnprotectedPaths.find((path) => path === pathname)) {
+  console.log(isAuthenticated);
+  if (!isAuthenticated && isProtected) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (isAuthenticated && !isProtected) {
+    return <Navigate to="/" replace />;
   }
 
   return <Routes {...props} />;

@@ -1,5 +1,13 @@
+import { User } from "./User";
+
 export interface Response {
   success: boolean;
-  result?: any;
   error?: Error;
+}
+
+export interface AuthResponse extends Response {
+  result: {
+    authToken?: string;
+    user?: User;
+  };
 }
