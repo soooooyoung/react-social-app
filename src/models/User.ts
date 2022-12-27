@@ -1,5 +1,5 @@
 export interface User {
-  user_Id: string;
+  userId: string;
   username: string;
   pasword: string;
   status: "ACTIVE" | "INACTIVE";

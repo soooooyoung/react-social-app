@@ -4,9 +4,12 @@ import {
   QueryFunctionContext,
   useInfiniteQuery,
   UseInfiniteQueryOptions,
+  useMutation,
+  useQueryClient,
 } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { env } from "../config/env";
+// import Cookies from "js-cookie";
 
 /*
  *
@@ -19,7 +22,28 @@ export const api = {
     axios.get<T>(`${env.server}${url}`, {
       ...params,
       headers: {
-        Authorization: env.server,
+        apikey: env.apikey,
+      },
+    }),
+  post: <T>(url: string, data: any) =>
+    axios.post<T>(`${env.server}${url}`, data, {
+      headers: {
+        apikey: env.apikey,
+        // token: Cookies.get("token"),
+      },
+    }),
+  patch: <T>(url: string, data: any) =>
+    axios.patch<T>(`${env.server}${url}`, data, {
+      headers: {
+        apikey: env.apikey,
+        // token: Cookies.get("token"),
+      },
+    }),
+  delete: <T>(url: string) =>
+    axios.delete<T>(`${env.server}${url}`, {
+      headers: {
+        apikey: env.apikey,
+        // token: Cookies.get("token"),
       },
     }),
 };
@@ -78,5 +102,78 @@ export const useInfiniteFetch = <T>(
     ({ queryKey, pageParam = 1 }) =>
       fetcher({ queryKey, meta: undefined, pageParam }),
     { ...config }
+  );
+};
+
+/**
+ *
+ * mutations
+ *
+ */
+const useGenericMutation = <T, S>(
+  func: (data: T | S) => Promise<AxiosResponse<S>>,
+  url: string,
+  params?: object,
+  updater?: ((oldData: T, newData: S) => T) | undefined
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<AxiosResponse, AxiosError, T | S>(func, {
+    onMutate: async (data) => {
+      await queryClient.cancelQueries([url!, params]);
+
+      const previousData = queryClient.getQueryData([url!, params]);
+
+      queryClient.setQueryData<T>([url!, params], (oldData) => {
+        return updater ? updater(oldData!, data as S) : (data as T);
+      });
+
+      return previousData;
+    },
+    onError: (err, _, context) => {
+      queryClient.setQueryData([url!, params], context);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries([url!, params]);
+    },
+  });
+};
+
+export const useDelete = <T>(
+  url: string,
+  params?: object,
+  updater?: (oldData: T, id: string | number) => T
+) => {
+  return useGenericMutation<T, string | number>(
+    (id) => api.delete(`${url}/${id}`),
+    url,
+    params,
+    updater
+  );
+};
+
+export const usePost = <T, S>(
+  url: string,
+  params?: object,
+  updater?: (oldData: T, newData: S) => T
+) => {
+  return useGenericMutation<T, S>(
+    (data) => api.post<S>(url, data),
+    url,
+    params,
+    updater
+  );
+};
+
+export const useUpdate = <T, S>(
+  url: string,
+  params?: object,
+  updater?: (oldData: T, newData: S) => T
+) => {
+  return useGenericMutation<T, S>(
+    (data) => api.patch<S>(url, data),
+    url,
+    params,
+    updater
   );
 };

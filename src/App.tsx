@@ -15,7 +15,7 @@ function App() {
   const dispatch = useAppDispatch();
   const { isAuthenticated, authToken } = useAppSelector(selectAuth);
   const {
-    data: checkAccessToken,
+    data: checkAuthToken,
     status,
     error,
   } = useCheckAuthentication(authToken, {
@@ -24,14 +24,13 @@ function App() {
   const { token } = useToken();
 
   useEffect(() => {
-    if (!checkAccessToken) {
+    if (!checkAuthToken) {
       dispatch(setIsAuthenticated(false));
     }
-  }, [checkAccessToken, dispatch]);
+  }, [checkAuthToken, dispatch]);
 
   useEffect(() => {
     if (status === "error") {
-      showErrorModal(error);
       dispatch(setIsAuthenticated(false));
     }
   }, [status, error, dispatch]);

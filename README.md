@@ -13,7 +13,7 @@
 
 ### Project Data, Folder Structures and Utilities
 
-✔️  Data models and response handling utilities
+✔️ Data models and response handling utilities
 
 ### Library Implementations
 
@@ -23,6 +23,7 @@
 ### Login Page
 
 👉 Handle log-in, log-out process
+
 - Store login information with cookies
 
 ### Signup Page
