@@ -17,7 +17,7 @@
 
 ### Library Implementations
 
-✔️ React Router: Authentication check and page transitions
+✔️ React Router: Authentication check and page transitions  
 ✔️ Redux: Structure establishment and authentication state management
 
 ### Login Page
