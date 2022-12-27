@@ -28,6 +28,6 @@ const authSlice = createSlice({
 
 export const selectAuth = (state: RootState) => state.auth;
 
-export const { setAuth } = authSlice.actions;
+export const { setAuth, reset } = authSlice.actions;
 
 export default authSlice;

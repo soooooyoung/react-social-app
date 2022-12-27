@@ -17,25 +17,25 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <ConfigProvider
-            theme={{
-              token: {
-                colorPrimary: "#127abf",
-              },
-            }}
-          >
-            <PersistGate loading={null} persistor={persistor}>
-              <App />
-            </PersistGate>
-          </ConfigProvider>
-        </BrowserRouter>
-      </Provider>
-    </QueryClientProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#127abf",
+            },
+          }}
+        >
+          <PersistGate loading={null} persistor={persistor}>
+            <App />
+          </PersistGate>
+        </ConfigProvider>
+      </BrowserRouter>
+    </Provider>
+  </QueryClientProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -65,11 +65,7 @@ export const fetcher = async <T>({
     .get<T>(url, { params: { ...params, page: pageParam } })
     .then((res) => res.data);
 };
-/*
- *
- * fetch
- *
- */
+
 export const useFetch = <T>(
   url: string,
   params?: object,
@@ -86,11 +82,6 @@ export const useFetch = <T>(
     }
   );
 };
-/*
- *
- * infinite fetch
- *
- */
 export const useInfiniteFetch = <T>(
   url: string,
   config?: Omit<
@@ -106,11 +97,6 @@ export const useInfiniteFetch = <T>(
   );
 };
 
-/**
- *
- * mutations
- *
- */
 const useGenericMutation = <T, S>(
   func: (data: T | S) => Promise<AxiosResponse<S>>,
   url: string,
