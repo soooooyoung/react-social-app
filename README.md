@@ -40,9 +40,9 @@
 
 ### Deployment
 
-✔️ Purchase, connect DNS
-✔️ Install SSL certificate
-👉 Configure Nginx
+✔️ Purchase, connect DNS  
+✔️ Install SSL certificate  
+👉 Configure Nginx  
 
 ## Functionality
 
