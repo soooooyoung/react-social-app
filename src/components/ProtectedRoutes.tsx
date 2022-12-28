@@ -1,15 +1,15 @@
 import { Spin } from "antd";
-import Cookies from "js-cookie";
+import { AxiosResponse } from "axios";
 import { useEffect } from "react";
 import { Navigate, Routes, RoutesProps, useLocation } from "react-router-dom";
 import { useCheckAuth } from "../api/auth";
 import { reset, selectAuth, setAuth } from "../app/authSlice";
 import { UnprotectedPaths } from "../app/constants";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { AuthResponse } from "../models";
 import { showErrorModal } from "../utils/responseUtils";
 
 export const ProtectedRoutes = (props: RoutesProps) => {
-  const authToken = Cookies.get("token");
   const { isAuthenticated } = useAppSelector(selectAuth);
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
@@ -17,23 +17,26 @@ export const ProtectedRoutes = (props: RoutesProps) => {
   const isProtected = !UnprotectedPaths.find((path) => path === pathname);
 
   useEffect(() => {
-    if (!authToken || authToken === "undefined") {
-      dispatch(reset());
-    } else {
-      mutateAsync(
-        { authToken },
-        {
-          onSuccess: (data) => {
-            dispatch(setAuth(data.data));
-          },
-          onError: (e) => {
-            showErrorModal(e.message);
+    if (isAuthenticated) {
+      mutateAsync(null, {
+        onSuccess: (data) => {
+          const response = data as AxiosResponse<AuthResponse>;
+          if (response.data.success) {
+            dispatch(setAuth(response.data));
+          } else {
+            showErrorModal("Invalid AuthToken");
             dispatch(reset());
-          },
-        }
-      );
+          }
+          return data;
+        },
+        onError: (e) => {
+          showErrorModal(e.message);
+          dispatch(reset());
+        },
+      });
     }
-  }, [authToken, dispatch, mutateAsync]);
+    // }
+  }, [dispatch, mutateAsync, isAuthenticated]);
 
   /**
    * Redirects with login state dependency

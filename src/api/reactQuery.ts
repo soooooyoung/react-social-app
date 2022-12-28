@@ -8,7 +8,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { env } from "../config/env";
 
 /*
@@ -17,34 +17,32 @@ import { env } from "../config/env";
  *
  */
 
+axios.defaults.withCredentials = true;
+
 export const api = {
   get: <T>(url: string, params?: object) =>
     axios.get<T>(`${env.server}${url}`, {
       ...params,
       headers: {
         apikey: env.apikey,
-        token: Cookies.get("token"),
       },
     }),
   post: <T>(url: string, data: any) =>
     axios.post<T>(`${env.server}${url}`, data, {
       headers: {
         apikey: env.apikey,
-        token: Cookies.get("token"),
       },
     }),
   patch: <T>(url: string, data: any) =>
     axios.patch<T>(`${env.server}${url}`, data, {
       headers: {
         apikey: env.apikey,
-        token: Cookies.get("token"),
       },
     }),
   delete: <T>(url: string) =>
     axios.delete<T>(`${env.server}${url}`, {
       headers: {
         apikey: env.apikey,
-        token: Cookies.get("token"),
       },
     }),
 };

@@ -1,6 +1,5 @@
 import { Button } from "antd";
 import { BasicProps, Header } from "antd/es/layout/layout";
-import Cookies from "js-cookie";
 import { reset } from "../app/authSlice";
 import { useAppDispatch } from "../app/hooks";
 
@@ -10,7 +9,7 @@ export const AppHeader = (
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    Cookies.remove("token");
+    // TODO: remove cookie server request
     dispatch(reset());
   };
 

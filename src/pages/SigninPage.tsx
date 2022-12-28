@@ -2,7 +2,6 @@ import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Form, Input, Space, Spin } from "antd";
 import { redirect } from "react-router-dom";
 import { AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 import { useAppDispatch } from "../app/hooks";
 import { useLogin } from "../api/auth";
 import { setAuth } from "../app/authSlice";
@@ -21,9 +20,8 @@ export const SigninPage = () => {
       },
       onSuccess: (data) => {
         const response = data as AxiosResponse<AuthResponse>;
-        if (response.data.success && response.data.result.authToken) {
+        if (response.data.success) {
           dispatch(setAuth(response.data));
-          Cookies.set("token", response.data.result.authToken);
           redirect("/");
         } else {
           showErrorModal("Wrong Password or Email");

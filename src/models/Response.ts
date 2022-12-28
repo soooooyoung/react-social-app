@@ -7,7 +7,6 @@ export interface Response {
 
 export interface AuthResponse extends Response {
   result: {
-    authToken?: string;
     user?: User;
   };
 }

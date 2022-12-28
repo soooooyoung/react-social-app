@@ -10,5 +10,5 @@ export const useLogin = () => {
 };
 
 export const useCheckAuth = () => {
-  return usePost<AuthResponse, AuthTokenParams>("/authToken");
+  return usePost<AuthResponse, null>("/authToken");
 };

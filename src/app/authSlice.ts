@@ -10,16 +10,11 @@ const authSlice = createSlice({
   reducers: {
     reset: () => initialState,
     setAuth: (state, { payload }: PayloadAction<AuthResponse>) => {
-      if (
-        !payload.success ||
-        !payload.result.authToken ||
-        !payload.result.user
-      ) {
+      if (!payload.success || !payload.result.user) {
         state = initialState;
         return;
       }
       state.isAuthenticated = payload.success;
-      state.authToken = payload.result.authToken;
       state.user = payload.result.user;
     },
   },
