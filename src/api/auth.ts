@@ -1,5 +1,5 @@
 import { usePost } from "./reactQuery";
-import { LoginParams, AuthTokenParams, AuthResponse } from "../models";
+import { LoginParams, AuthResponse } from "../models";
 
 /**
  * Fetch

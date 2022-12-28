@@ -1,14 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
-import { ConfigProvider } from "antd";
-import { Provider } from "react-redux";
+import reportWebVitals from "./reportWebVitals";
 import { store, persistor } from "./app/store";
-import { PersistGate } from "redux-persist/integration/react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { ConfigProvider } from "antd";
+import App from "./App";
+import "./index.css";
 
 const queryClient = new QueryClient();
 

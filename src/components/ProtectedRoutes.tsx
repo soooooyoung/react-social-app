@@ -35,7 +35,6 @@ export const ProtectedRoutes = (props: RoutesProps) => {
         },
       });
     }
-    // }
   }, [dispatch, mutateAsync, isAuthenticated]);
 
   /**

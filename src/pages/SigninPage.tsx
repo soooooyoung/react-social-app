@@ -1,12 +1,12 @@
+import { AxiosResponse } from "axios";
+import { redirect } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Form, Input, Space, Spin } from "antd";
-import { redirect } from "react-router-dom";
-import { AxiosResponse } from "axios";
-import { useAppDispatch } from "../app/hooks";
-import { useLogin } from "../api/auth";
-import { setAuth } from "../app/authSlice";
 import { showErrorModal } from "../utils/responseUtils";
 import { AuthResponse, LoginParams } from "../models";
+import { useAppDispatch } from "../app/hooks";
+import { setAuth } from "../app/authSlice";
+import { useLogin } from "../api/auth";
 import "./SigninPage.css";
 
 export const SigninPage = () => {
@@ -24,7 +24,7 @@ export const SigninPage = () => {
           dispatch(setAuth(response.data));
           redirect("/");
         } else {
-          showErrorModal("Wrong Password or Email");
+          showErrorModal("Wrong Password or Username");
         }
         return data;
       },

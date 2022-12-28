@@ -1,10 +1,10 @@
 import { Layout, theme } from "antd";
-import { Content } from "antd/es/layout/layout";
+import { AppHeader } from "./components/AppHeader";
 import { selectAuth } from "./app/authSlice";
 import { useAppSelector } from "./app/hooks";
-import { AppHeader } from "./components/AppHeader";
 import { Router } from "./components/Router";
 
+const { Content } = Layout;
 const { useToken } = theme;
 
 function App() {
