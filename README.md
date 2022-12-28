@@ -22,16 +22,16 @@
 
 ### Login Page
 
-👉 Handle log-in, log-out process
+✔️ Handle log-in, log-out process
 
-- Store login information with cookies
+✔️ ~~Store login information with cookie~~ Cookie Handled with HTTP only
 
 ### Signup Page
 
-- Handle sign up process
+❌ ~~Handle sign up process~~ Postponed until deployment
 
 ### Dashboard Page
 
-- Create, read, update, delete posts
+👉 Create, read, update, delete posts
 - Like, comments on posts
 - Follow, unfollow users
