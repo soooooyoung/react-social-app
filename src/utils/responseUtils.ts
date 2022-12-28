@@ -7,10 +7,10 @@ export const responseHandler = async <T>(
   return Promise.resolve(raw as T);
 };
 
-export const showErrorModal = (error?: Error) => {
-  if (error === undefined) {
+export const showErrorModal = (message?: string) => {
+  if (message === undefined) {
     Modal.error({ title: "ERROR" });
     return;
   }
-  Modal.error({ title: error.message });
+  Modal.error({ title: message });
 };

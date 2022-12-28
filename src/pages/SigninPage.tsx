@@ -17,7 +17,7 @@ export const SigninPage = () => {
   const onFinish = async (values: LoginParams) => {
     await mutateAsync(values, {
       onError: (e) => {
-        showErrorModal(e);
+        showErrorModal(e.message);
       },
       onSuccess: (data) => {
         const response = data as AxiosResponse<AuthResponse>;
@@ -26,7 +26,7 @@ export const SigninPage = () => {
           Cookies.set("token", response.data.result.authToken);
           redirect("/");
         } else {
-          showErrorModal();
+          showErrorModal("Wrong Password or Email");
         }
         return data;
       },
@@ -59,7 +59,7 @@ export const SigninPage = () => {
                 { required: true, message: "Please input your username!" },
               ]}
             >
-              <Input placeholder="Enter your username" />
+              <Input maxLength={100} placeholder="Enter your username" />
             </Form.Item>
             <Form.Item
               label="Password"
@@ -69,6 +69,7 @@ export const SigninPage = () => {
               ]}
             >
               <Input.Password
+                maxLength={100}
                 placeholder="Enter your password"
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />

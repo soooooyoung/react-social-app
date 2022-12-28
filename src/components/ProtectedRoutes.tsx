@@ -27,7 +27,7 @@ export const ProtectedRoutes = (props: RoutesProps) => {
             dispatch(setAuth(data.data));
           },
           onError: (e) => {
-            showErrorModal(e);
+            showErrorModal(e.message);
             dispatch(reset());
           },
         }
