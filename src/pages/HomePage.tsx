@@ -1,7 +1,9 @@
+import React from "react";
+import dayjs from "dayjs";
 import {
   CommentOutlined,
-  EditOutlined,
   LikeOutlined,
+  EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
 import { Card, Input, List } from "antd";
@@ -23,7 +25,6 @@ import {
   setSelectedPost,
 } from "./postSlice";
 import "./HomePage.css";
-import React from "react";
 
 export const HomePage = () => {
   /**
@@ -133,12 +134,13 @@ export const HomePage = () => {
             <Card
               className="card"
               actions={[
-                <LikeOutlined key="like" />,
-                <CommentOutlined key="comment" />,
+                // <LikeOutlined key="like"  />,
+                // <CommentOutlined key="comment"  />,
                 <EditOutlined
                   key="edit"
                   onClick={() => handleClickEditButton(item)}
                 />,
+
                 <DeleteOutlined
                   key="delete"
                   onClick={() => item.postId && handleDeletePost(item.postId)}
@@ -152,7 +154,7 @@ export const HomePage = () => {
                       className="textArea"
                       bordered={false}
                       maxLength={500}
-                      autoSize={{ minRows: 2, maxRows: 6 }}
+                      autoSize={{ minRows: 2, maxRows: 10 }}
                       value={selectedPostContent}
                       onChange={(e) => {
                         dispatch(setSelectedContent(e.target.value));
@@ -169,7 +171,15 @@ export const HomePage = () => {
                     </span>
                   )
                 }
-                description={item.created_date}
+                description={
+                  <div>
+                    {dayjs(item.created_date).format("YYYY.MM.DD HH:mm:ss")}
+                    {item.updated_date !== "0000-00-00 00:00:00" &&
+                      ` / Updated: ${dayjs(item.updated_date).format(
+                        "YYYY.MM.DD HH:mm:ss"
+                      )}`}
+                  </div>
+                }
               />
             </Card>
           </List.Item>
