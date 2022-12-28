@@ -1,7 +1,7 @@
 import { UseQueryOptions } from "@tanstack/react-query";
 import { Post } from "../models";
 import { showErrorModal } from "../utils/responseUtils";
-import { QueryKeyT, useFetch } from "./reactQuery";
+import { QueryKeyT, useDelete, useFetch, usePost } from "./reactQuery";
 
 /**
  * Fetch
@@ -18,10 +18,19 @@ export const useFetchAllPosts = (
       onError: (e) => {
         showErrorModal(e.message);
       },
-      onSuccess: (data) => {
-        //TODO: sort by updated date
-        return data.reverse();
-      },
     }
+  );
+};
+
+export const useSavePost = (userId?: number) => {
+  return usePost<Post[], Post>(`/posts/${userId}`, {}, (array, newData) => [
+    ...array,
+    newData,
+  ]);
+};
+
+export const useDeletePost = (userId?: number) => {
+  return useDelete<Post[]>(`/posts/${userId}`, {}, (array, id) =>
+    array.filter((post) => post.postId !== id)
   );
 };

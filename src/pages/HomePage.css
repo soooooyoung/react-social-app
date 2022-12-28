@@ -1,6 +1,11 @@
 .card {
-  width: 800px;
-
+  max-width: 800px;
   overflow: auto;
   margin: auto;
+  transition-duration: 200ms;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 16px;
 }

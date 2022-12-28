@@ -48,7 +48,7 @@ export const ProtectedRoutes = (props: RoutesProps) => {
   }
 
   return (
-    <Spin spinning={isLoading}>
+    <Spin tip="Loading..." size="large" spinning={isLoading} delay={200}>
       <Routes {...props} />
     </Spin>
   );
