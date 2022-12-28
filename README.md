@@ -8,6 +8,8 @@
 - [React Router](https://reactrouter.com/en/main)
 - [React Redux & Redux](https://react-redux.js.org/)
 - [Ant Design](https://ant.design/)
+- [Redux Persist](https://www.npmjs.com/package/redux-persist)
+- [DayJS](https://day.js.org/)
 
 ## Project Timeline
 
@@ -24,7 +26,7 @@
 
 ✔️ Handle log-in, log-out process
 
-✔️ ~~Store login information with cookie~~ Cookie Handled with HTTP only
+✔️ Cookie Handled with HTTP only
 
 ### Signup Page
 
@@ -33,5 +35,25 @@
 ### Dashboard Page
 
 ✔️ Create, read, update, delete posts  
-👉 ~~Like, comments on posts~~ Postponed until deployment  
+❌ ~~Like, comments on posts~~ Postponed until deployment  
 ❌ ~~Follow, unfollow users~~ Postponed until deployment
+
+### Deployment
+
+✔️ Purchase, connect DNS
+✔️ Install SSL certificate
+👉 Configure Nginx
+
+## Functionality
+
+### Protected Routes
+
+Implementation of protected Route components to only grant access to autorized users. Authorization check request is sent to server on every Route transitions.
+
+### Authtoken
+
+Every request to server is sent using HTTP only Cookies.
+
+### CRUD Posts using Generic React Query
+
+Create, read, update, delete posts using generic implementation of React Query.
