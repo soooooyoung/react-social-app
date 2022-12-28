@@ -9,3 +9,12 @@
   display: flex;
   gap: 16px;
 }
+
+.text-area {
+  white-space: "pre-wrap";
+  resize: "none";
+}
+
+.text {
+  white-space: normal;
+}

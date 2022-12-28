@@ -5,7 +5,12 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import { Card, Input, List } from "antd";
-import { useDeletePost, useFetchAllPosts, useSavePost } from "../api/post";
+import {
+  useDeletePost,
+  useFetchAllPosts,
+  useSavePost,
+  useUpdatePost,
+} from "../api/post";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { Post } from "../models";
 import { showErrorModal } from "../utils/responseUtils";
@@ -33,6 +38,7 @@ export const HomePage = () => {
    */
   const { data } = useFetchAllPosts(user?.userId);
   const { mutateAsync: savePostAsync } = useSavePost(user?.userId);
+  const { mutateAsync: updatePostAsync } = useUpdatePost(user?.userId);
   const { mutateAsync: deletePostAsync } = useDeletePost(user?.userId);
 
   const handleSubmitPost = async () => {
@@ -68,9 +74,34 @@ export const HomePage = () => {
     });
   };
 
-  const handleClickEditButton = (post: Post) => {
-    if (selectedPost === post.postId) {
-      dispatch(resetSelectedPost());
+  const handleUpdatePost = async () => {
+    if (
+      !selectedPost ||
+      !selectedPostContent ||
+      selectedPostContent === "undefined" ||
+      selectedPostContent.replace(/\s/g, "").length < 1
+    ) {
+      return;
+    }
+    await updatePostAsync(
+      {
+        postId: selectedPost,
+        content: selectedPostContent,
+      },
+      {
+        onError: (e) => {
+          showErrorModal(e.message);
+        },
+        onSuccess: () => {
+          dispatch(resetSelectedPost());
+        },
+      }
+    );
+  };
+
+  const handleClickEditButton = async (post: Post) => {
+    if (selectedPost) {
+      await handleUpdatePost();
       return;
     }
     dispatch(setSelectedPost(post));
@@ -83,10 +114,11 @@ export const HomePage = () => {
           <Card className="card">
             <div className="content-wrapper">
               <Input.TextArea
+                className="text-area"
                 autoFocus
                 rows={3}
-                maxLength={200}
-                style={{ resize: "none", whiteSpace: "pre-wrap" }}
+                autoSize={{ minRows: 2, maxRows: 6 }}
+                maxLength={500}
                 value={newPostContent}
                 onChange={(e) => {
                   dispatch(setNewContent(e.target.value));
@@ -117,12 +149,9 @@ export const HomePage = () => {
                 title={
                   selectedPost && selectedPost === item.postId ? (
                     <Input.TextArea
+                      className="textArea"
                       bordered={false}
-                      maxLength={200}
-                      style={{
-                        whiteSpace: "pre-wrap",
-                        resize: "none",
-                      }}
+                      maxLength={500}
                       autoSize={{ minRows: 2, maxRows: 6 }}
                       value={selectedPostContent}
                       onChange={(e) => {
@@ -130,7 +159,7 @@ export const HomePage = () => {
                       }}
                     />
                   ) : (
-                    <span>
+                    <span className="text">
                       {item.content?.split("\n").map((content, idx) => (
                         <React.Fragment key={idx}>
                           {content}

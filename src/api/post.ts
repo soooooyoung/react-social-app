@@ -1,11 +1,14 @@
 import { UseQueryOptions } from "@tanstack/react-query";
 import { Post } from "../models";
 import { showErrorModal } from "../utils/responseUtils";
-import { QueryKeyT, useDelete, useFetch, usePost } from "./reactQuery";
+import {
+  QueryKeyT,
+  useDelete,
+  useFetch,
+  usePost,
+  useUpdate,
+} from "./reactQuery";
 
-/**
- * Fetch
- */
 export const useFetchAllPosts = (
   userId?: number,
   config?: UseQueryOptions<Post[], Error, Post[], QueryKeyT>
@@ -34,3 +37,13 @@ export const useDeletePost = (userId?: number) => {
     array.filter((post) => post.postId !== id)
   );
 };
+
+export const useUpdatePost = (userId?: number) =>
+  useUpdate<Post[], Post>(`/posts/${userId}`, {}, (array, newData) =>
+    array.map((post) => {
+      if (post.postId === newData.postId) {
+        return newData;
+      }
+      return post;
+    })
+  );
