@@ -4,38 +4,59 @@ import {
   LikeOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Card, Input, List, Space } from "antd";
-import { useState } from "react";
+import { Card, Input, List } from "antd";
 import { useDeletePost, useFetchAllPosts, useSavePost } from "../api/post";
-import { selectAuth } from "../app/authSlice";
-import { useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { Post } from "../models";
 import { showErrorModal } from "../utils/responseUtils";
+import { selectAuth } from "../app/authSlice";
+import {
+  resetSelectedPost,
+  selectPost,
+  setNewContent,
+  setSelectedContent,
+  setSelectedPost,
+} from "./postSlice";
 import "./HomePage.css";
+import React from "react";
 
 export const HomePage = () => {
+  /**
+   * State Management
+   */
+  const { selectedPost, selectedPostContent, newPostContent } =
+    useAppSelector(selectPost);
   const { user } = useAppSelector(selectAuth);
+  const dispatch = useAppDispatch();
+  /**
+   * Query
+   */
   const { data } = useFetchAllPosts(user?.userId);
   const { mutateAsync: savePostAsync } = useSavePost(user?.userId);
   const { mutateAsync: deletePostAsync } = useDeletePost(user?.userId);
-  const [userInput, setUserInput] = useState<string>("");
 
   const handleSubmitPost = async () => {
-    if (userInput.replace(/\s/g, "").length < 1 || userInput === undefined) {
+    if (
+      !newPostContent ||
+      newPostContent.replace(/\s/g, "").length < 1 ||
+      newPostContent === undefined
+    ) {
       return;
     }
-    const newPost: Post = {
-      userId: user?.userId,
-      content: userInput,
-    };
-    await savePostAsync(newPost, {
-      onError: (e) => {
-        showErrorModal(e.message);
+    await savePostAsync(
+      {
+        userId: user?.userId,
+        content: newPostContent,
       },
-      onSuccess: () => {
-        setUserInput("");
-      },
-    });
+      {
+        onError: (e) => {
+          showErrorModal(e.message);
+        },
+        onSuccess: () => {
+          dispatch(setNewContent(""));
+        },
+      }
+    );
   };
 
   const handleDeletePost = async (postId: number) => {
@@ -45,6 +66,14 @@ export const HomePage = () => {
       },
       onSuccess: () => {},
     });
+  };
+
+  const handleClickEditButton = (post: Post) => {
+    if (selectedPost === post.postId) {
+      dispatch(resetSelectedPost());
+      return;
+    }
+    dispatch(setSelectedPost(post));
   };
 
   return (
@@ -58,9 +87,9 @@ export const HomePage = () => {
                 rows={3}
                 maxLength={200}
                 style={{ resize: "none", whiteSpace: "pre-wrap" }}
-                value={userInput}
+                value={newPostContent}
                 onChange={(e) => {
-                  setUserInput(e.target.value);
+                  dispatch(setNewContent(e.target.value));
                 }}
               />
               <EditOutlined onClick={handleSubmitPost} />
@@ -74,7 +103,10 @@ export const HomePage = () => {
               actions={[
                 <LikeOutlined key="like" />,
                 <CommentOutlined key="comment" />,
-                <EditOutlined key="edit" />,
+                <EditOutlined
+                  key="edit"
+                  onClick={() => handleClickEditButton(item)}
+                />,
                 <DeleteOutlined
                   key="delete"
                   onClick={() => item.postId && handleDeletePost(item.postId)}
@@ -83,14 +115,30 @@ export const HomePage = () => {
             >
               <Card.Meta
                 title={
-                  <span>
-                    {item.content?.split("\n").map((content) => (
-                      <>
-                        {content}
-                        <br />
-                      </>
-                    ))}
-                  </span>
+                  selectedPost && selectedPost === item.postId ? (
+                    <Input.TextArea
+                      bordered={false}
+                      maxLength={200}
+                      style={{
+                        whiteSpace: "pre-wrap",
+                        resize: "none",
+                      }}
+                      autoSize={{ minRows: 2, maxRows: 6 }}
+                      value={selectedPostContent}
+                      onChange={(e) => {
+                        dispatch(setSelectedContent(e.target.value));
+                      }}
+                    />
+                  ) : (
+                    <span>
+                      {item.content?.split("\n").map((content, idx) => (
+                        <React.Fragment key={idx}>
+                          {content}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                    </span>
+                  )
                 }
                 description={item.created_date}
               />
