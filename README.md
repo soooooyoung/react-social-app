@@ -32,6 +32,6 @@
 
 ### Dashboard Page
 
-✔️ Create, read, update, delete posts
-👉 ~~Like, comments on posts~~ Postponed until deployment
+✔️ Create, read, update, delete posts  
+👉 ~~Like, comments on posts~~ Postponed until deployment  
 ❌ ~~Follow, unfollow users~~ Postponed until deployment
