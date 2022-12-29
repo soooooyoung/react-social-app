@@ -46,14 +46,6 @@
 
 ## Functionality
 
-### Protected Routes
-
-Implementation of protected Route components to only grant access to autorized users. Authorization check request is sent to server on every Route transitions.
-
-### Authtoken
-
-Every request to server is sent using HTTP only Cookies.
-
 ### Login
 
 ![](prev_login.gif)
@@ -69,3 +61,21 @@ Every request to server is sent using HTTP only Cookies.
 ### Delete Post
 
 ![](prev_delete.gif)
+
+## Implementations
+
+### User Credentials 
+
+#### Protected Routes
+Implementation of protected Route components to only grant access to authorized users. Authorization check request is sent to server on every Route transitions.
+
+#### HTTP Only Cookie
+
+Every request sent to server carries HTTP only Cookies.
+
+### Redux & Redux Persist (Local Storage)
+
+Redux Persist allows states to be saved in multiple storage environments. While values like user input can be subjected to single component, values that are used throughout the application may be better stored persistently (i.e: currently logged in user). Implementing custom solution to persist those values would require extensive time for debugging and standardizing for cross platforms so I settled on using Redux Persist.
+
+While verification implementations like Protected Routes and API Requests handles secure information, logged in user information is saved in Local Storage through Redux. Upon removing user crendentials, current user information is reset.
+
