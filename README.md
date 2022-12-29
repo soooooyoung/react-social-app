@@ -58,16 +58,14 @@ Every request to server is sent using HTTP only Cookies.
 
 ![](prev_login.gif)
 
-### Create, read, update, delete posts using generic implementation of React Query.
-
-#### Write Post
+### Write Post
 
 ![](prev_write.gif)
 
-#### Edit Post
+### Edit Post
 
 ![](prev_edit.gif)
 
-#### Delete Post
+### Delete Post
 
 ![](prev_delete.gif)
