@@ -56,18 +56,18 @@ Every request to server is sent using HTTP only Cookies.
 
 ### Login
 
-![](https://github.com/soooooyoung/react-social-app/src/assets/prev_login.gif)
+![](prev_login.gif)
 
 ### Create, read, update, delete posts using generic implementation of React Query.
 
 #### Write Post
 
-![](https://github.com/soooooyoung/react-social-app/src/assets/prev_write.gif)
+![](prev_write.gif)
 
 #### Edit Post
 
-![](https://github.com/soooooyoung/react-social-app/src/assets/prev_edit.gif)
+![](prev_edit.gif)
 
 #### Delete Post
 
-![](https://github.com/soooooyoung/react-social-app/src/assets/prev_delete.gif)
+![](prev_delete.gif)
