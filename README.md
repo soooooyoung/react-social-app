@@ -54,6 +54,20 @@ Implementation of protected Route components to only grant access to autorized u
 
 Every request to server is sent using HTTP only Cookies.
 
-### CRUD Posts using Generic React Query
+### Login
 
-Create, read, update, delete posts using generic implementation of React Query.
+![](https://github.com/react-social-app/src/assets/prev_login.gif)
+
+### Create, read, update, delete posts using generic implementation of React Query.
+
+#### Write Post
+
+![](https://github.com/react-social-app/src/assets/prev_write.gif)
+
+#### Edit Post
+
+![](https://github.com/react-social-app/src/assets/prev_edit.gif)
+
+#### Delete Post
+
+![](https://github.com/react-social-app/src/assets/prev_delete.gif)
