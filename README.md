@@ -1,5 +1,7 @@
 # SNSUS - React Social Media App (FE)
 
+[See Site](https://snsus.click/)
+
 ## Built With
 
 - [TypeScript](https://www.typescriptlang.org/)
@@ -30,19 +32,19 @@
 
 ### Signup Page
 
-❌ ~~Handle sign up process~~ Postponed until deployment
+👉 Handle sign up process  
 
 ### Dashboard Page
 
 ✔️ Create, read, update, delete posts  
-❌ ~~Like, comments on posts~~ Postponed until deployment  
-❌ ~~Follow, unfollow users~~ Postponed until deployment
+❌ Like, comments on posts  
+❌ Follow, unfollow users  
 
 ### Deployment
 
 ✔️ Purchase, connect DNS  
 ✔️ Install SSL certificate  
-👉 Configure Nginx  
+✔️ Configure Nginx  
 
 ## Functionality
 
