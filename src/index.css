@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Prosto+One&family=Unbounded:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Nunito:wght@200;400;700;1000&display=swap");
 
 body {
   margin: 0;
@@ -14,13 +15,16 @@ code {
     monospace;
 }
 
+span {
+  font-family: "Nunito";
+}
+
 .wrapper {
-  min-height: 100vh;
 }
 
 .sider,
 .content {
-  background-color: #001529;
+  background-color: #ededf0;
 }
 
 .header {
@@ -35,6 +39,25 @@ code {
 }
 
 .container {
-  max-width: 1200px;
   margin: auto;
+  max-width: 1200px;
+}
+
+.separator {
+  width: 100%;
+  border-bottom-style: solid;
+  border-bottom-width: 0.5px;
+  border-bottom-color: rgb(231, 231, 231);
+}
+
+.footer {
+  background-color: #ffffff !important;
+  color: #9fa2a4 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.logo {
+  color: #ffb3c1;
 }

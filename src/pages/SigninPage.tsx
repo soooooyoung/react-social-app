@@ -7,6 +7,7 @@ import { AuthResponse, LoginParams } from "../models";
 import { useAppDispatch } from "../app/hooks";
 import { setAuth } from "../app/authSlice";
 import { useLogin } from "../api/auth";
+import { RecentLogins } from "../components/RecentLogins";
 import "./SigninPage.css";
 
 export const SigninPage = () => {
@@ -36,8 +37,9 @@ export const SigninPage = () => {
   };
 
   return (
-    <div className="signin-container">
-      <div className="login-form-wrapper">
+    <div className="container">
+      <RecentLogins className="signin-content-wrapper" />
+      <div className="signin-content-wrapper">
         <Spin spinning={isLoading}>
           <Form
             className="form"
@@ -45,13 +47,10 @@ export const SigninPage = () => {
             autoComplete="off"
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 18 }}
             requiredMark={false}
             colon={false}
           >
             <Form.Item
-              label="Username"
               name="username"
               rules={[
                 { required: true, message: "Please input your username!" },
@@ -60,7 +59,6 @@ export const SigninPage = () => {
               <Input maxLength={100} placeholder="Enter your username" />
             </Form.Item>
             <Form.Item
-              label="Password"
               name="password"
               rules={[
                 { required: true, message: "Please input your password!" },
@@ -74,16 +72,24 @@ export const SigninPage = () => {
                 }
               />
             </Form.Item>
-            <Space direction="horizontal">
-              <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Login
-                </Button>
-              </Form.Item>
-              <Form.Item>
-                <Button disabled>Join</Button>
-              </Form.Item>
-            </Space>
+            <div className="login-ui">
+              <Button type="primary" htmlType="submit">
+                Log In
+              </Button>
+              <a>Forgot password?</a>
+              <div className="separator"></div>
+              <Button
+                type="primary"
+                onClick={() => {
+                  showErrorModal(
+                    "Access Denied.",
+                    "Sign up available for limited users only."
+                  );
+                }}
+              >
+                Create new account
+              </Button>
+            </div>
           </Form>
         </Spin>
       </div>

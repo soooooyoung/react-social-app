@@ -3,6 +3,7 @@ import { AppHeader } from "./components/AppHeader";
 import { selectAuth } from "./app/authSlice";
 import { useAppSelector } from "./app/hooks";
 import { Router } from "./components/Router";
+import { AppFooter } from "./components/AppFooter";
 
 const { Content } = Layout;
 const { useToken } = theme;
@@ -21,6 +22,7 @@ function App() {
           <Router />
         </Content>
       </Layout>
+      <AppFooter className="footer" />
     </Layout>
   );
 }

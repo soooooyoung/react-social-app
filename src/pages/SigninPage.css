@@ -1,18 +1,53 @@
-.signin-container {
+.container {
   display: flex;
-  align-items: center;
-  height: 100vh;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  height: 100%;
+  padding-top: 12%;
+  padding-bottom: 12%;
 }
 
-.login-form-wrapper {
+.signin-content-wrapper {
   display: flex;
-  align-items: center;
   flex-direction: column;
   width: 100vw;
+  width: 396px;
 }
 
 .form {
+  width: 396px;
   background-color: #ffffff;
   padding: 42px;
   border-radius: 16px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  font-size: 16px;
+}
+
+.form input,
+.form .ant-input-password {
+  padding: 13px 16px;
+}
+
+.login-ui {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.login-ui button {
+  height: 48px;
+  border-style: none;
+  box-shadow: none;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.login-ui button:last-child {
+  background-color: rgb(152, 188, 255);
+}
+
+.login-ui button:last-child:hover {
+  background-color: rgb(207, 194, 255);
 }

@@ -1,0 +1,20 @@
+.recentlogins {
+  padding: 0px 5px;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.logo {
+  font-size: 48px;
+  line-height: 48px;
+  font-weight: 700;
+  font-family: "Cabin";
+}
+
+.recentlogins .title {
+  font-size: 32px;
+}
+
+.recentlogins .description {
+  color: rgb(188, 188, 188);
+  font-size: 20px;
+}
