@@ -27,8 +27,8 @@
 ### Login Page
 
 ✔️ Handle log-in, log-out process
-
-✔️ Cookie Handled with HTTP only
+✔️ Cookie Handled with HTTP only  
+- Utilize Session Id to fetch Recent Logins  
 
 ### Signup Page
 
@@ -45,6 +45,13 @@
 ✔️ Purchase, connect DNS  
 ✔️ Install SSL certificate  
 ✔️ Configure Nginx  
+
++
+
+### Common
+
+- Change language of application
+
 
 ## Functionality
 
