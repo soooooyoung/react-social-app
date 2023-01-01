@@ -6,7 +6,7 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Card, Input, List } from "antd";
+import { Button, Card, Input, List } from "antd";
 import {
   useDeletePost,
   useFetchAllPosts,
@@ -42,12 +42,15 @@ export const HomePage = () => {
   const { mutateAsync: updatePostAsync } = useUpdatePost(user?.userId);
   const { mutateAsync: deletePostAsync } = useDeletePost(user?.userId);
 
+  const isValidContent = (text?: string) => {
+    if (!text || text.replace(/\s/g, "").length < 1 || text === undefined) {
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmitPost = async () => {
-    if (
-      !newPostContent ||
-      newPostContent.replace(/\s/g, "").length < 1 ||
-      newPostContent === undefined
-    ) {
+    if (!isValidContent(newPostContent)) {
       return;
     }
     await savePostAsync(
@@ -109,11 +112,11 @@ export const HomePage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="home-container">
       <List className="list" size="large" itemLayout="vertical">
-        <List.Item>
+        <List.Item className="card-wrapper">
           <Card className="card">
-            <div className="content-wrapper">
+            <div className="text-wrapper">
               <Input.TextArea
                 className="text-area"
                 autoFocus
@@ -125,12 +128,16 @@ export const HomePage = () => {
                   dispatch(setNewContent(e.target.value));
                 }}
               />
-              <EditOutlined onClick={handleSubmitPost} />
+              <Button
+                disabled={!isValidContent(newPostContent)}
+                icon={<EditOutlined />}
+                onClick={handleSubmitPost}
+              />
             </div>
           </Card>
         </List.Item>
         {data?.map((item, idx) => (
-          <List.Item key={idx}>
+          <List.Item key={idx} className="card-wrapper">
             <Card
               className="card"
               actions={[

@@ -1,13 +1,20 @@
-.card {
-  max-width: 800px;
-  overflow: auto;
+.home-container {
   margin: auto;
-  transition-duration: 200ms;
+  max-width: 744px;
 }
 
-.content-wrapper {
+.card {
+  margin: 0;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+}
+.text-wrapper {
   display: flex;
+  align-items: center;
   gap: 16px;
+}
+.text-wrapper button {
+  border-style: none;
+  box-shadow: none;
 }
 
 .text-area {

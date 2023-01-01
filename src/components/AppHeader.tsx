@@ -1,10 +1,13 @@
 import { Button } from "antd";
-import { BasicProps, Header } from "antd/es/layout/layout";
 import { reset } from "../app/authSlice";
 import { useAppDispatch } from "../app/hooks";
+import { SearchInput } from "./SearchInput";
 
 export const AppHeader = (
-  props: BasicProps & React.RefAttributes<HTMLElement>
+  props: React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >
 ) => {
   const dispatch = useAppDispatch();
 
@@ -14,9 +17,11 @@ export const AppHeader = (
   };
 
   return (
-    <Header {...props}>
-      <span>SNSUS</span>
+    <div {...props}>
+      <span className="logo-symbol noselect">S</span>
+      <SearchInput />
+      <div className="flex-space" />
       <Button onClick={handleLogout}>Log Out</Button>
-    </Header>
+    </div>
   );
 };

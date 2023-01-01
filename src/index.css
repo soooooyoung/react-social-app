@@ -1,5 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Prosto+One&family=Unbounded:wght@900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Nunito:wght@200;400;700;1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Nunito:wght@200;400;700;1000&family=Space+Grotesk:wght@400;700&display=swap");
+
+:root {
+  --header-height: 56px;
+  --primary-color: #ffb3c1;
+  --gray: #ededf0;
+  --dark-gray: #8d8d98;
+}
 
 body {
   margin: 0;
@@ -19,18 +25,23 @@ span {
   font-family: "Nunito";
 }
 
-.wrapper {
-}
-
 .sider,
 .content {
-  background-color: #ededf0;
+  background-color: var(--gray);
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  position: sticky;
+  gap: 16px;
+  top: 0;
+  z-index: 1000;
+  height: var(--header-height);
+  background-color: #ffffff;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: 0px 16px;
 }
 
 .header:first-child {
@@ -43,13 +54,6 @@ span {
   max-width: 1200px;
 }
 
-.separator {
-  width: 100%;
-  border-bottom-style: solid;
-  border-bottom-width: 0.5px;
-  border-bottom-color: rgb(231, 231, 231);
-}
-
 .footer {
   background-color: #ffffff !important;
   color: #9fa2a4 !important;
@@ -58,6 +62,42 @@ span {
   gap: 16px;
 }
 
-.logo {
-  color: #ffb3c1;
+.logo-symbol {
+  font-family: "Space Grotesk";
+  background-color: var(--primary-color);
+  font-size: 32px;
+  width: 40px;
+  height: 40px;
+  color: #ffffff;
+  border-radius: 36px;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 246, 224, 1) 0%,
+    rgba(255, 212, 212, 1) 42%,
+    rgba(255, 179, 193, 1) 100%
+  );
+  box-shadow: rgba(223, 133, 111, 0.319) 2.4px 2.4px 3.2px;
+}
+
+/**
+Tools
+*/
+.separator {
+  width: 100%;
+  border-bottom-style: solid;
+  border-bottom-width: 0.5px;
+  border-bottom-color: rgb(231, 231, 231);
+}
+.flex-space {
+  flex-grow: 2;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
