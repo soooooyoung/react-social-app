@@ -46,8 +46,6 @@
 ✔️ Install SSL certificate  
 ✔️ Configure Nginx  
 
-+
-
 ### Common
 
 - Change language of application
