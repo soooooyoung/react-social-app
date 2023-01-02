@@ -1,19 +1,20 @@
-import { Spin } from "antd";
-import React, { useEffect, useRef } from "react";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useAppDispatch } from "../app/hooks";
+import { setLoading } from "../app/loadingSlice";
 import { env } from "../config/env";
 import { showErrorModal } from "../utils/responseUtils";
 import { useLoadScript } from "../utils/scriptUtils";
 
 interface Props {
   onChange: (verified: boolean) => void;
+  onLoad?: () => void;
 }
 
-export const ReCaptcha = ({ onChange }: Props) => {
-  const { scriptElem, isReady } = useLoadScript(
-    "https://www.google.com/recaptcha/api.js"
+export const ReCaptcha = ({ onChange, onLoad }: Props) => {
+  const { scriptElem } = useLoadScript(
+    "https://www.google.com/recaptcha/api.js?onload=onLoadCallback&render=explicit"
   );
-
+  const dispatch = useAppDispatch();
   const handleRecaptchaSuccess = () => {
     onChange(true);
   };
@@ -27,16 +28,30 @@ export const ReCaptcha = ({ onChange }: Props) => {
     onChange(false);
     showErrorModal("ReCaptcha Expired!");
   };
+
+  const handleRecaptchaLoad = () => {
+    if (window.grecaptcha && window.grecaptcha.render && env.api.recaptcha) {
+      window.grecaptcha.render("recap", {
+        sitekey: env.api.recaptcha,
+        callback: "handleRecaptchaSuccess",
+        "error-callback": "handleRecaptchaError",
+        "expired-callback": "handleRecaptchaExpired",
+      });
+
+      dispatch(setLoading(false));
+    }
+  };
+
+  useEffect(() => {
+    if (scriptElem === undefined) {
+      dispatch(setLoading(true));
+    }
+  }, [dispatch, scriptElem]);
+
   window.handleRecaptchaSuccess = handleRecaptchaSuccess;
   window.handleRecaptchaError = handleRecaptchaError;
   window.handleRecaptchaExpired = handleRecaptchaExpired;
-  return (
-    <div
-      className="g-recaptcha"
-      data-sitekey={env.api.recaptcha}
-      data-callback="handleRecaptchaSuccess"
-      data-error-callback="handleRecaptchaError"
-      data-expired-callback="handleRecaptchaExpired"
-    ></div>
-  );
+  window.onLoadCallback = handleRecaptchaLoad;
+
+  return <div id="recap" className="g-recaptcha" />;
 };
