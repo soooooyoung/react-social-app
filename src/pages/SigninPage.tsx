@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Form, Input, Space, Spin } from "antd";
+import { Button, Form, Input, Spin } from "antd";
 import { showErrorModal } from "../utils/responseUtils";
 import { AuthResponse, LoginParams } from "../models";
 import { useAppDispatch } from "../app/hooks";
@@ -12,6 +12,7 @@ import "./SigninPage.css";
 
 export const SigninPage = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { mutateAsync, isLoading } = useLogin();
 
   const onFinish = async (values: LoginParams) => {
@@ -72,7 +73,7 @@ export const SigninPage = () => {
                 }
               />
             </Form.Item>
-            <div className="login-ui">
+            <div className="ui-button">
               <Button type="primary" htmlType="submit">
                 Log In
               </Button>
@@ -81,10 +82,7 @@ export const SigninPage = () => {
               <Button
                 type="primary"
                 onClick={() => {
-                  showErrorModal(
-                    "Access Denied.",
-                    "Sign up available for limited users only."
-                  );
+                  navigate("/signup");
                 }}
               >
                 Create new account

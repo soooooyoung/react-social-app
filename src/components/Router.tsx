@@ -16,8 +16,8 @@ export const Router = () => {
         errorElement={<>Oops! Something went wrong.</>}
       />
       <Route
-        path="/redirect"
-        element={<Navigate to="/login" />}
+        path="/signup"
+        element={<SignupPage />}
         errorElement={<>Oops! Something went wrong.</>}
       />
     </ProtectedRoutes>

@@ -28,6 +28,7 @@ span {
 .sider,
 .content {
   background-color: var(--gray);
+  overflow: hidden;
 }
 
 .header {
@@ -80,18 +81,65 @@ span {
   box-shadow: rgba(223, 133, 111, 0.319) 2.4px 2.4px 3.2px;
 }
 
+.ui-button {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.ui-button button {
+  height: 48px;
+  border-style: none;
+  box-shadow: none;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.ui-button button:last-child:not(.sns) {
+  background-color: rgb(152, 188, 255);
+}
+
+.ui-button button:last-child:not(.sns):hover {
+  background-color: rgb(207, 194, 255);
+}
+
+/* .ui-button:has(> .sns) button {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+} */
+
+.sns {
+  color: #ffffff;
+  border-radius: 8px;
+}
+
+.kakao {
+  background-color: #fee500;
+}
+.naver {
+  background-color: #2db400;
+}
+.google {
+  /* color: #000000; */
+  background-color: #000000;
+}
+
 /**
 Tools
 */
+
 .separator {
   width: 100%;
   border-bottom-style: solid;
   border-bottom-width: 0.5px;
   border-bottom-color: rgb(231, 231, 231);
 }
+
 .flex-space {
   flex-grow: 2;
 }
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */

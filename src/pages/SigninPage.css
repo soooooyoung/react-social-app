@@ -27,27 +27,3 @@
 .form .ant-input-password {
   padding: 13px 16px;
 }
-
-.login-ui {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  vertical-align: middle;
-  text-align: center;
-}
-
-.login-ui button {
-  height: 48px;
-  border-style: none;
-  box-shadow: none;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.login-ui button:last-child {
-  background-color: rgb(152, 188, 255);
-}
-
-.login-ui button:last-child:hover {
-  background-color: rgb(207, 194, 255);
-}
