@@ -1,5 +1,3 @@
-export {};
-
 declare global {
   interface Window {
     handleRecaptchaSuccess?: () => void;
