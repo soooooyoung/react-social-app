@@ -1,8 +1,9 @@
 import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Skeleton, Spin } from "antd";
+import { Button, Checkbox, Form, Input, Spin } from "antd";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { selectLoading, setLoading } from "../app/loadingSlice";
+import { Navigate } from "react-router-dom";
+import { useAppSelector } from "../app/hooks";
+import { selectLoading } from "../app/loadingSlice";
 import { ReCaptcha } from "../components/ReCaptcha";
 import welcome from "../img/welcome.png";
 import { showErrorModal } from "../utils/responseUtils";
@@ -12,8 +13,8 @@ export const SignupPage = () => {
   const [recaptchaStatus, setRecaptchaStatus] = useState<boolean>(false);
   const loading = useAppSelector(selectLoading);
 
-  const onFinish = () => {
-    showErrorModal("Sign up Service Not Available. Please check back later.");
+  const onFinish = (values: any) => {
+    console.log(values);
   };
 
   const onFinishFailed = () => {};
@@ -116,6 +117,25 @@ export const SignupPage = () => {
               ]}
             >
               <Input.Password placeholder="Confirm your password" />
+            </Form.Item>
+            <Form.Item
+              name="agreement"
+              valuePropName="checked"
+              rules={[
+                {
+                  validator: (_, value) =>
+                    value
+                      ? Promise.resolve()
+                      : Promise.reject(new Error("Please accept agreement")),
+                },
+              ]}
+            >
+              <Checkbox>
+                I Agree to{" "}
+                <a href="/terms" target="_blank">
+                  Terms & Service
+                </a>
+              </Checkbox>
             </Form.Item>
             <div className="ui-button">
               <Button type="primary" htmlType="submit">
