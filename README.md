@@ -26,19 +26,24 @@
 
 ### Login Page
 
-✔️ Handle log-in, log-out process
+✔️ Handle log-in, log-out process  
 ✔️ Cookie Handled with HTTP only  
 - Utilize Session Id to fetch Recent Logins  
 
 ### Signup Page
 
+✔️ Add Google ReCAPTCHA  
 👉 Handle sign up process  
+
+### Terms Page
+
+✔️ Add terms of service  
 
 ### Dashboard Page
 
 ✔️ Create, read, update, delete posts  
-❌ Like, comments on posts  
-❌ Follow, unfollow users  
+- Like, comments on posts  
+- Follow, unfollow users  
 
 ### Deployment
 
