@@ -1,6 +1,8 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { HomePage, SigninPage, SignupPage } from "../pages";
+import { SignupEmailPage } from "../pages/SignupEmailPage";
 import { TermsPage } from "../pages/TermsPage";
+import { PrivateRoute } from "./PrivateRoute";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 
 export const Router = () => {
@@ -8,7 +10,7 @@ export const Router = () => {
     <ProtectedRoutes>
       <Route
         path="/"
-        element={<HomePage />}
+        element={<PrivateRoute component={<HomePage />} />}
         errorElement={<>Oops! Something went wrong.</>}
       />
       <Route
@@ -19,6 +21,11 @@ export const Router = () => {
       <Route
         path="/signup"
         element={<SignupPage />}
+        errorElement={<>Oops! Something went wrong.</>}
+      />
+      <Route
+        path="/signup/verify_email/:token"
+        element={<SignupEmailPage />}
         errorElement={<>Oops! Something went wrong.</>}
       />
       <Route

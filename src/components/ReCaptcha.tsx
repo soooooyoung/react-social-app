@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useMutationObserver } from "../app/hooks";
 import { setLoading } from "../app/loadingSlice";
 import { env } from "../config/env";
 import { showErrorModal } from "../utils/responseUtils";
@@ -15,6 +15,11 @@ export const ReCaptcha = ({ onChange, onLoad }: Props) => {
     "https://www.google.com/recaptcha/api.js?onload=onLoadCallback&render=explicit"
   );
   const dispatch = useAppDispatch();
+  const ref = useMutationObserver((mutations, observer) => {
+    dispatch(setLoading(false));
+    // alert("dis");
+    observer.disconnect();
+  });
   const handleRecaptchaSuccess = () => {
     onChange(true);
   };
@@ -26,7 +31,6 @@ export const ReCaptcha = ({ onChange, onLoad }: Props) => {
 
   const handleRecaptchaExpired = () => {
     onChange(false);
-    showErrorModal("ReCaptcha Expired!");
   };
 
   const handleRecaptchaLoad = () => {
@@ -37,8 +41,6 @@ export const ReCaptcha = ({ onChange, onLoad }: Props) => {
         "error-callback": "handleRecaptchaError",
         "expired-callback": "handleRecaptchaExpired",
       });
-
-      dispatch(setLoading(false));
     }
   };
 
@@ -53,5 +55,5 @@ export const ReCaptcha = ({ onChange, onLoad }: Props) => {
   window.handleRecaptchaExpired = handleRecaptchaExpired;
   window.onLoadCallback = handleRecaptchaLoad;
 
-  return <div id="recap" className="g-recaptcha" />;
+  return <div ref={ref} id="recap" className="g-recaptcha" />;
 };
