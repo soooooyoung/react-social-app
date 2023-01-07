@@ -1,17 +1,18 @@
 import { AxiosResponse } from "axios";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Form, Input, Spin } from "antd";
 import { showErrorModal } from "../utils/responseUtils";
 import { AuthResponse, LoginParams } from "../models";
-import { useAppDispatch } from "../app/hooks";
-import { setAuth } from "../app/authSlice";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { selectAuth, setAuth } from "../app/authSlice";
 import { useLogin } from "../api/auth";
 import { RecentLogins } from "../components/RecentLogins";
 import "./SigninPage.css";
 
 export const SigninPage = () => {
   const dispatch = useAppDispatch();
+  const isAuth = useAppSelector(selectAuth).isAuthenticated;
   const navigate = useNavigate();
   const { mutateAsync, isLoading } = useLogin();
 
@@ -24,7 +25,7 @@ export const SigninPage = () => {
         const response = data as AxiosResponse<AuthResponse>;
         if (response.data.success) {
           dispatch(setAuth(response.data));
-          redirect("/");
+          navigate("/");
         } else {
           showErrorModal("Wrong Password or Username");
         }

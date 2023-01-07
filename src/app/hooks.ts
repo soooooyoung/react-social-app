@@ -18,8 +18,6 @@ export const useMutationObserver = (
 
   const callback = useCallback(
     (mutations: MutationRecord[], observer: MutationObserver) => {
-      console.log("MUTATIONS", mutations);
-      console.log("oberserver", observer);
       onMutation(mutations, observer);
     },
     [onMutation]

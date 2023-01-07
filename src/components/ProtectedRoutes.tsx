@@ -2,7 +2,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 import { AxiosResponse } from "axios";
 import { useEffect } from "react";
-import { Routes, RoutesProps } from "react-router-dom";
+import { Navigate, Routes, RoutesProps, useLocation } from "react-router-dom";
 import { useCheckAuth } from "../api/auth";
 import { reset, selectAuth, setAuth } from "../app/authSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
@@ -11,6 +11,7 @@ import { showErrorModal } from "../utils/responseUtils";
 
 export const ProtectedRoutes = (props: RoutesProps) => {
   const { isAuthenticated } = useAppSelector(selectAuth);
+  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const { mutateAsync, isLoading } = useCheckAuth();
 
@@ -34,6 +35,10 @@ export const ProtectedRoutes = (props: RoutesProps) => {
       });
     }
   }, [dispatch, mutateAsync, isAuthenticated]);
+
+  if (isAuthenticated && (pathname === "/login" || pathname === "/signup")) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Spin

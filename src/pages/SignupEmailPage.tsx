@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useVerifyEmail } from "../api/signup";
 import welcome2 from "../img/welcome2.png";
 import noresult from "../img/noresult.png";
@@ -16,11 +16,18 @@ export const SignupEmailPage = () => {
   return (
     <div className="signup-container">
       <div className="signup-content">
-        <img src={data?.success ? welcome2 : noresult} alt="" />
         {data?.success ? (
-          <span>Sign Up Complete! You can now log in.</span>
+          <>
+            <img src={welcome2} alt="" />
+            <span>
+              Sign Up Complete! You can now <Link to="/login">log in.</Link>
+            </span>
+          </>
         ) : (
-          <span>Sorry! Account request expired.</span>
+          <>
+            <img src={noresult} alt="" />
+            <span>Sorry! Account request expired.</span>
+          </>
         )}
       </div>
     </div>
