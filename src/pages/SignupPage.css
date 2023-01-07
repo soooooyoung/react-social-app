@@ -43,9 +43,9 @@
   margin: auto;
 }
 
-@media only screen and (max-width: 392px) {
+@media only screen and (max-width: 375px) {
   .signup-content {
-    width: 320px;
+    width: 100%;
     align-items: center;
   }
 }

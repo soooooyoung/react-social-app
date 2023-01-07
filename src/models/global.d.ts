@@ -17,7 +17,7 @@ export interface ReCAPTCHA {
    * @param {string} opt_widget_id Optional widget ID, defaults to the first widget created if
    *     unspecified.
    */
-  execute(opt_widget_id?: string): void;
+  execute(opt_widget_id?: string | number): void;
 
   /**
    * Renders the container as a reCAPTCHA widget and returns the ID of the newly created widget.
@@ -38,7 +38,7 @@ export interface ReCAPTCHA {
    * @param {string} opt_widget_id Optional widget ID, defaults to the first widget created if
    *     unspecified.
    */
-  reset(opt_widget_id?: string): void;
+  reset(opt_widget_id?: string | number): void;
 
   /**
    * Gets the response for the reCAPTCHA widget. Returns a null if reCaptcha is not validated.

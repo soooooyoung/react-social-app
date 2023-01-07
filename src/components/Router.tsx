@@ -19,7 +19,6 @@ export const Router = () => {
         element={<PrivateRoute component={<HomePage />} />}
         errorElement={<>Oops! Something went wrong.</>}
       />
-
       <Route
         path="/login"
         element={<SigninPage />}
