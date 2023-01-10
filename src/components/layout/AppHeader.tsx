@@ -1,7 +1,7 @@
 import { Button } from "antd";
-import { reset } from "../app/authSlice";
-import { useAppDispatch } from "../app/hooks";
-import { SearchInput } from "./SearchInput";
+import { reset } from "../../app/authSlice";
+import { useAppDispatch } from "../../app/hooks";
+import { SearchInput } from "../SearchInput";
 
 export const AppHeader = (
   props: React.DetailedHTMLProps<
@@ -18,7 +18,8 @@ export const AppHeader = (
 
   return (
     <div {...props}>
-      <span className="logo-symbol noselect">S</span>
+      <img src={"/logo192.png"} alt="S" />
+      {/* <span className="logo-symbol noselect">S</span> */}
       <SearchInput />
       <div className="flex-space" />
       <Button onClick={handleLogout}>Log Out</Button>

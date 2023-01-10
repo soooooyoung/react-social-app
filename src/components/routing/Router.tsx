@@ -1,8 +1,7 @@
 import { Navigate, Route } from "react-router-dom";
-
-import { HomePage, SigninPage, SignupPage } from "../pages";
-import { SignupEmailPage } from "../pages/SignupEmailPage";
-import { TermsPage } from "../pages/TermsPage";
+import { HomePage, SigninPage, SignupPage } from "../../pages";
+import { SignupEmailPage } from "../../pages/SignupEmailPage";
+import { TermsPage } from "../../pages/TermsPage";
 import { PrivateRoute } from "./PrivateRoute";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 

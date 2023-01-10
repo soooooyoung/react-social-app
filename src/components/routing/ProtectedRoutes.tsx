@@ -1,13 +1,13 @@
-import { LoadingOutlined } from "@ant-design/icons";
+import { useEffect } from "react";
 import { Spin } from "antd";
 import { AxiosResponse } from "axios";
-import { useEffect } from "react";
+import { LoadingOutlined } from "@ant-design/icons";
+import { reset, selectAuth, setAuth } from "../../app/authSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Navigate, Routes, RoutesProps, useLocation } from "react-router-dom";
-import { useCheckAuth } from "../api/auth";
-import { reset, selectAuth, setAuth } from "../app/authSlice";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { AuthResponse } from "../models";
-import { showErrorModal } from "../utils/responseUtils";
+import { showErrorModal } from "../../utils/responseUtils";
+import { useCheckAuth } from "../../api/auth";
+import { AuthResponse } from "../../models";
 
 export const ProtectedRoutes = (props: RoutesProps) => {
   const { isAuthenticated } = useAppSelector(selectAuth);

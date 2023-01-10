@@ -11,7 +11,7 @@
   margin: 16px 0px;
   flex-grow: 2;
   max-width: 744px;
-  min-height: 100vh;
+
   gap: 16px;
 }
 .sider {
@@ -51,6 +51,9 @@
 @media only screen and (min-width: 768px) and (max-width: 1200px) {
   .home-container {
     justify-content: center;
+    .list {
+      padding: 16px;
+    }
     .sider {
       width: 300px;
     }

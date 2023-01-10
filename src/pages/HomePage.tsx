@@ -6,7 +6,7 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Button, Card, Input, List } from "antd";
+import { Button, Card, Input } from "antd";
 import {
   useDeletePost,
   useFetchAllPosts,
@@ -14,7 +14,8 @@ import {
   useUpdatePost,
 } from "../api/post";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { Post } from "../models";
+import { Friendlist } from "../components/view/FriendList";
+import { Profile } from "../components/view/Profile";
 import { showErrorModal } from "../utils/responseUtils";
 import { selectAuth } from "../app/authSlice";
 import {
@@ -24,8 +25,8 @@ import {
   setSelectedContent,
   setSelectedPost,
 } from "./postSlice";
+import { Post } from "../models";
 import "./HomePage.scss";
-import { Friendlist } from "../components/FriendList";
 
 export const HomePage = () => {
   /**
@@ -114,7 +115,9 @@ export const HomePage = () => {
 
   return (
     <div className="home-container">
-      <div className="sider">{/* <Friendlist /> */}</div>
+      <div className="sider">
+        <Profile user={user} />
+      </div>
       <div className="list">
         <div className="card-wrapper">
           <Card className="card">
@@ -126,6 +129,7 @@ export const HomePage = () => {
                 autoSize={{ minRows: 2, maxRows: 6 }}
                 maxLength={500}
                 value={newPostContent}
+                placeholder="Write your thoughts..."
                 onChange={(e) => {
                   dispatch(setNewContent(e.target.value));
                 }}

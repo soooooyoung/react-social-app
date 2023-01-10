@@ -7,6 +7,7 @@ export interface Friendship {
 export interface Friend {
   nickname?: string;
   profileImgUrl?: string;
+  intro?: string;
   userId: number;
   username: string;
 }

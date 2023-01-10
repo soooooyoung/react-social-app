@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
-import { selectAuth } from "../app/authSlice";
-import { useAppSelector } from "../app/hooks";
+import { selectAuth } from "../../app/authSlice";
+import { useAppSelector } from "../../app/hooks";
 
 interface Props {
   component: React.ReactElement;

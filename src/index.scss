@@ -24,6 +24,9 @@ code {
 span {
   font-family: "Nunito";
 }
+.wrapper {
+  background-color: #ffffff;
+}
 
 .content {
   background-color: var(--gray);
@@ -46,6 +49,9 @@ span {
 .header:first-child {
   font-family: "Unbounded";
   font-size: 24px;
+  img {
+    height: 32px;
+  }
 }
 
 .container {
@@ -54,7 +60,7 @@ span {
 }
 
 .footer {
-  background-color: #ffffff !important;
+  background-color: transparent !important;
   color: #9fa2a4 !important;
   display: flex;
   flex-direction: column;
@@ -75,24 +81,6 @@ span {
 .sider::-webkit-scrollbar {
   width: 0;
   height: 0;
-}
-
-.logo-symbol {
-  font-family: "Space Grotesk";
-  background-color: var(--primary-color);
-  font-size: 32px;
-  width: 40px;
-  height: 40px;
-  color: #ffffff;
-  border-radius: 36px;
-  text-align: center;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 246, 224, 1) 0%,
-    rgba(255, 212, 212, 1) 42%,
-    rgba(255, 179, 193, 1) 100%
-  );
-  box-shadow: rgba(223, 133, 111, 0.319) 2.4px 2.4px 3.2px;
 }
 
 .ui-button {

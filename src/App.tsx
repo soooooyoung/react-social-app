@@ -1,12 +1,11 @@
 import { Layout, theme } from "antd";
-import { AppHeader } from "./components/AppHeader";
+import { AppHeader } from "./components/layout/AppHeader";
 import { selectAuth } from "./app/authSlice";
 import { useAppSelector } from "./app/hooks";
-import { Router } from "./components/Router";
-import { AppFooter } from "./components/AppFooter";
-import { Friendlist } from "./components/FriendList";
+import { Router } from "./components/routing/Router";
+import { AppFooter } from "./components/layout/AppFooter";
 
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 const { useToken } = theme;
 
 function App() {

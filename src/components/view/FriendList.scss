@@ -1,7 +1,6 @@
 .friendlist {
   display: flex;
   flex-direction: column;
-
   margin-top: 16px;
   gap: 16px;
   padding: 16px;
@@ -17,6 +16,9 @@
     padding: 16px;
     .item {
       padding: 8px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
     }
   }
 }

@@ -1,4 +1,3 @@
-import { Space } from "antd";
 import { BasicProps, Footer } from "antd/es/layout/layout";
 
 export const AppFooter = (
