@@ -7,7 +7,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { ConfigProvider } from "antd";
 import App from "./App";
-import "./index.css";
+import "./index.scss";
 
 const queryClient = new QueryClient();
 

@@ -24,7 +24,8 @@ import {
   setSelectedContent,
   setSelectedPost,
 } from "./postSlice";
-import "./HomePage.css";
+import "./HomePage.scss";
+import { Friendlist } from "../components/FriendList";
 
 export const HomePage = () => {
   /**
@@ -113,8 +114,9 @@ export const HomePage = () => {
 
   return (
     <div className="home-container">
-      <List className="list" size="large" itemLayout="vertical">
-        <List.Item className="card-wrapper">
+      <div className="sider">{/* <Friendlist /> */}</div>
+      <div className="list">
+        <div className="card-wrapper">
           <Card className="card">
             <div className="text-wrapper">
               <Input.TextArea
@@ -135,9 +137,9 @@ export const HomePage = () => {
               />
             </div>
           </Card>
-        </List.Item>
+        </div>
         {data?.map((item, idx) => (
-          <List.Item key={idx} className="card-wrapper">
+          <div key={idx} className="card-wrapper">
             <Card
               className="card"
               actions={[
@@ -189,9 +191,12 @@ export const HomePage = () => {
                 }
               />
             </Card>
-          </List.Item>
-        ))}{" "}
-      </List>
+          </div>
+        ))}
+      </div>
+      <div className="sider">
+        <Friendlist />
+      </div>
     </div>
   );
 };

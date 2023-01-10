@@ -4,9 +4,9 @@ import { selectAuth } from "./app/authSlice";
 import { useAppSelector } from "./app/hooks";
 import { Router } from "./components/Router";
 import { AppFooter } from "./components/AppFooter";
-import { useLoadScript } from "./utils/scriptUtils";
+import { Friendlist } from "./components/FriendList";
 
-const { Content } = Layout;
+const { Content, Sider } = Layout;
 const { useToken } = theme;
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
           <Router />
         </Content>
       </Layout>
-      <AppFooter className="footer" />
+      {!isAuthenticated && <AppFooter className="footer" />}
     </Layout>
   );
 }

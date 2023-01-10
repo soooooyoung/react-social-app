@@ -1,9 +1,9 @@
 export interface User {
   userId: number;
   username: string;
-  pasword: string;
-  status: "ACTIVE" | "INACTIVE";
-  following: string[]; // user_Id []
+  password: string;
+  statusCode?: "A" | "I";
+  typeCode?: "E" | "K" | "N" | "G";
   created_date: string;
   nickname?: string;
 }

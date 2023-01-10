@@ -9,7 +9,7 @@ export const useLoadScript = (script: string, id: string, cb?: () => void) => {
       if (found !== null) {
         setScriptElem(found);
         if (cb) cb();
-      } else if (scriptElem === undefined) {
+      } else {
         const elem = document.createElement("script");
         elem.src = script;
         elem.async = true;

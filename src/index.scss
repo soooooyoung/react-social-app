@@ -25,10 +25,8 @@ span {
   font-family: "Nunito";
 }
 
-.sider,
 .content {
   background-color: var(--gray);
-  overflow: hidden;
 }
 
 .header {
@@ -36,7 +34,7 @@ span {
   align-items: center;
   position: sticky;
   gap: 16px;
-  top: 0;
+  top: 0px;
   z-index: 1000;
   height: var(--header-height);
   background-color: #ffffff;
@@ -61,6 +59,22 @@ span {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.sider {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sider::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .logo-symbol {
