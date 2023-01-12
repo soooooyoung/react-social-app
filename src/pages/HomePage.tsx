@@ -116,7 +116,7 @@ export const HomePage = () => {
   return (
     <div className="home-container">
       <div className="sider">
-        <Profile user={user} />
+        <Profile userId={user?.userId} />
       </div>
       <div className="list">
         <div className="card-wrapper">
