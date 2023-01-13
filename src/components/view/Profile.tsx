@@ -1,5 +1,6 @@
 import { EditOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Input } from "antd";
+import React from "react";
 import { ChangeEvent, useState } from "react";
 import { useFetchUser, useUpdateUser } from "../../api/user";
 import { User } from "../../models";
@@ -43,16 +44,27 @@ export const Profile = ({ userId, size }: Props) => {
   return (
     <div className="profile">
       <div className="content">
-        {/* <span className="title">Profile</span> */}
         <EditOutlined className="editBtn" onClick={handleClickEditButton} />
         <div className="profile-img-container">
           <Avatar size={size || 240} icon={<UserOutlined />} />
         </div>
         <span className="username">{getUsername(data)}</span>
         {editMode ? (
-          <Input.TextArea onChange={handleChangeEditValue} value={editValue} />
+          <Input.TextArea
+            className="text-area"
+            onChange={handleChangeEditValue}
+            maxLength={500}
+            value={editValue}
+          />
         ) : (
-          <span>{data?.intro}</span>
+          <span>
+            {data?.intro?.split("\n").map((content, idx) => (
+              <React.Fragment key={idx}>
+                {content}
+                <br />
+              </React.Fragment>
+            ))}
+          </span>
         )}
       </div>
       <AppFooter className="footer" />

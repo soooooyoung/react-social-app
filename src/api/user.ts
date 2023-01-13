@@ -10,4 +10,4 @@ export const useFetchUser = (
 };
 
 export const useUpdateUser = (userId?: number) =>
-  useUpdate<User, User>(`/user/${userId}`);
+  useUpdate<User, User>(`/user/${userId}`, {}, (oldData, newData) => newData);
