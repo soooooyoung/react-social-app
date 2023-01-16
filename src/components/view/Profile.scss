@@ -23,5 +23,17 @@
     .username {
       align-self: center;
     }
+    .content-ui {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: 8px;
+      span {
+        color: var(--dark-gray);
+      }
+      span:hover {
+        color: var(--primary-color);
+      }
+    }
   }
 }

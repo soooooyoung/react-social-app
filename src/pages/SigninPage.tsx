@@ -7,7 +7,7 @@ import { AuthResponse, LoginParams } from "../models";
 import { useAppDispatch } from "../app/hooks";
 import { setAuth } from "../app/authSlice";
 import { useLogin } from "../api/auth";
-import { RecentLogins } from "../components/RecentLogins";
+import { RecentLogins } from "../components/view/RecentLogins";
 import "./SigninPage.css";
 
 export const SigninPage = () => {
