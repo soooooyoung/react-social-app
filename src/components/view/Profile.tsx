@@ -1,3 +1,4 @@
+import React from "react";
 import {
   CameraOutlined,
   DeleteOutlined,
@@ -6,16 +7,16 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Input, Popconfirm } from "antd";
-import React from "react";
 import { ChangeEvent, useState } from "react";
 import { useFetchUser, useUpdateUser } from "../../api/user";
 import { getUsername } from "../../utils/stringUtils";
 import { FileUploader } from "../FileUploader";
 import { AppFooter } from "../layout/AppFooter";
 import { UploadRequestOption } from "rc-upload/lib/interface";
-import "./Profile.scss";
 import { useDeleteImageProfile, useSaveImageProfile } from "../../api/file";
 import { env } from "../../config/env";
+import "./Profile.scss";
+import { showErrorModal } from "../../utils/responseUtils";
 
 interface Props {
   userId?: number;
@@ -56,6 +57,12 @@ export const Profile = ({ userId, size }: Props) => {
     await uploadImage(
       { file: option.file },
       {
+        onError: () => {
+          showErrorModal(
+            "Failed To Upload",
+            "Please make sure your file is less than 2mb in size and in correct format"
+          );
+        },
         onSuccess: async (data) => {
           if (option.onSuccess) option.onSuccess({}, data.request);
           await refetch();
@@ -75,7 +82,10 @@ export const Profile = ({ userId, size }: Props) => {
     <div className="profile">
       <div className="content">
         <div className="content-ui">
-          <FileUploader onUpload={handleFileUpload} icon={<CameraOutlined />} />
+          <FileUploader
+            onUpload={handleFileUpload}
+            icon={<CameraOutlined className="uploadBtn" />}
+          />
           {data?.profileImgUrl && (
             <Popconfirm
               showArrow={false}
@@ -86,7 +96,7 @@ export const Profile = ({ userId, size }: Props) => {
             >
               <DeleteOutlined className="deleteBtn" />
             </Popconfirm>
-          )}{" "}
+          )}
           <div className="content-space" />
           <EditOutlined className="editBtn" onClick={handleClickEditButton} />
         </div>

@@ -7,19 +7,17 @@
   justify-content: space-between;
   .content {
     display: flex;
-
     flex-direction: column;
     border-radius: 8px;
     padding: 16px;
     gap: 16px;
     background-color: #ffffff;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
-    .editBtn {
-      margin-top: -2px;
-    }
+    .editBtn,
     .deleteBtn {
       margin-top: -2px;
     }
+
     .profile-img-container {
       align-self: center;
     }
@@ -34,9 +32,11 @@
       gap: 8px;
 
       span {
+        font-size: 16px;
         color: var(--dark-gray);
       }
       span:hover {
+        cursor: pointer;
         color: var(--primary-color);
       }
       .content-space {
