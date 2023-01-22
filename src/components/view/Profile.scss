@@ -15,7 +15,10 @@
     background-color: #ffffff;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
     .editBtn {
-      align-self: flex-end;
+      margin-top: -2px;
+    }
+    .deleteBtn {
+      margin-top: -2px;
     }
     .profile-img-container {
       align-self: center;
@@ -25,15 +28,23 @@
     }
     .content-ui {
       display: flex;
-      flex-direction: row-reverse;
+
       align-items: center;
+
       gap: 8px;
+
       span {
         color: var(--dark-gray);
       }
       span:hover {
         color: var(--primary-color);
       }
+      .content-space {
+        flex-grow: 2;
+      }
     }
   }
+}
+.profile-tooltip {
+  margin-bottom: 40px;
 }

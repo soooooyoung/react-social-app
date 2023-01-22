@@ -1,12 +1,21 @@
-import { CameraOutlined, EditOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Input } from "antd";
+import {
+  CameraOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  QuestionCircleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Avatar, Input, Popconfirm } from "antd";
 import React from "react";
 import { ChangeEvent, useState } from "react";
 import { useFetchUser, useUpdateUser } from "../../api/user";
 import { getUsername } from "../../utils/stringUtils";
 import { FileUploader } from "../FileUploader";
 import { AppFooter } from "../layout/AppFooter";
+import { UploadRequestOption } from "rc-upload/lib/interface";
 import "./Profile.scss";
+import { useDeleteImageProfile, useSaveImageProfile } from "../../api/file";
+import { env } from "../../config/env";
 
 interface Props {
   userId?: number;
@@ -14,10 +23,12 @@ interface Props {
 }
 
 export const Profile = ({ userId, size }: Props) => {
-  const { data } = useFetchUser(userId, {
+  const { data, refetch } = useFetchUser(userId, {
     enabled: !!userId,
   });
-  const { mutateAsync } = useUpdateUser(userId);
+  const { mutateAsync: uploadImage } = useSaveImageProfile(userId);
+  const { mutateAsync: deleteImage } = useDeleteImageProfile(userId);
+  const { mutateAsync: updateUser } = useUpdateUser(userId);
   const [editMode, setEditMode] = useState<boolean>(false);
   const [editValue, setEditValue] = useState<string>();
 
@@ -26,7 +37,7 @@ export const Profile = ({ userId, size }: Props) => {
     if (!editMode) {
       setEditValue(data?.intro);
     } else {
-      await mutateAsync({
+      await updateUser({
         ...data,
         intro: editValue,
       });
@@ -41,18 +52,52 @@ export const Profile = ({ userId, size }: Props) => {
     setEditValue(e.target.value);
   };
 
-  const handleClickCameraButton = () => {};
+  const handleFileUpload = async (option: UploadRequestOption<any>) => {
+    await uploadImage(
+      { file: option.file },
+      {
+        onSuccess: async (data) => {
+          if (option.onSuccess) option.onSuccess({}, data.request);
+          await refetch();
+        },
+      }
+    );
+  };
+  const handleFileDelete = async () => {
+    await deleteImage("", {
+      onSuccess: async () => {
+        await refetch();
+      },
+    });
+  };
 
   return (
     <div className="profile">
       <div className="content">
         <div className="content-ui">
+          <FileUploader onUpload={handleFileUpload} icon={<CameraOutlined />} />
+          {data?.profileImgUrl && (
+            <Popconfirm
+              showArrow={false}
+              icon={<QuestionCircleOutlined style={{ color: "#ffb3c1" }} />}
+              title="Delete Profile Image"
+              description="Are you sure you want to delete your picture?"
+              onConfirm={handleFileDelete}
+            >
+              <DeleteOutlined className="deleteBtn" />
+            </Popconfirm>
+          )}{" "}
+          <div className="content-space" />
           <EditOutlined className="editBtn" onClick={handleClickEditButton} />
-          <FileUploader icon={<CameraOutlined />} />
-          {/* <CameraOutlined onClick={handleClickCameraButton} /> */}
         </div>
+
         <div className="profile-img-container">
-          <Avatar size={size || 240} icon={<UserOutlined />} />
+          <Avatar
+            shape="square"
+            size={size || 240}
+            icon={<UserOutlined />}
+            src={data?.profileImgUrl && `${env.server}${data?.profileImgUrl}`}
+          />
         </div>
 
         <span className="username">{getUsername(data)}</span>

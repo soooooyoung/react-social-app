@@ -1,20 +1,34 @@
-import { useState } from "react";
 import { Upload } from "antd";
 import ImgCrop from "antd-img-crop";
-import { CameraOutlined } from "@ant-design/icons";
-import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
-import { useCreateFile } from "../api/file";
+import type {
+  RcFile,
+  UploadChangeParam,
+  UploadFile,
+  UploadProps,
+} from "antd/es/upload/interface";
+import { UploadRequestOption } from "rc-upload/lib/interface";
 
 interface Props {
   icon?: React.ReactNode;
+  fileList?: Array<any>;
+  onUpload: (option: UploadRequestOption<any>) => void;
+  onRemove?: (file: UploadFile<any> | RcFile) => void;
+  onChange?: (info: UploadChangeParam<UploadFile<any>>) => void;
 }
 
-export const FileUploader = ({ icon }: Props) => {
-  const { mutateAsync } = useCreateFile("1");
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+export const FileUploader = (props: Props) => {
+  const onUpload = (option: UploadRequestOption<any>) => {
+    props.onUpload(option);
+  };
 
-  const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
+  const onRemove = (file: UploadFile<any> | RcFile) => {
+    if (props.onRemove) props.onRemove(file);
+  };
+
+  const onChange: UploadProps["onChange"] = (
+    info: UploadChangeParam<UploadFile<any>>
+  ) => {
+    if (props.onChange) props.onChange(info);
   };
 
   const onPreview = async (file: UploadFile) => {
@@ -32,21 +46,17 @@ export const FileUploader = ({ icon }: Props) => {
     imgWindow?.document.write(image.outerHTML);
   };
 
+  const uploadProps: UploadProps = {
+    customRequest: onUpload,
+    onRemove,
+    onChange,
+
+    fileList: props.fileList ?? [],
+  };
+
   return (
     <ImgCrop rotate>
-      <Upload
-        // action={(file) => {
-        //   mutateAsync({ file });
-        // }}
-        customRequest={(options: UploadRequestOption<any>) => {}}
-        // listType="picture-card"
-        // fileList={fileList}
-        onChange={onChange}
-        onPreview={onPreview}
-      >
-        {icon ?? <a>Upload</a>}
-        {/* {fileList.length < 5 && "+ Upload"} */}
-      </Upload>
+      <Upload {...uploadProps}>{props.icon ?? <a>Upload</a>}</Upload>
     </ImgCrop>
   );
 };

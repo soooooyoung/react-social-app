@@ -45,6 +45,13 @@ export const api = {
         apikey: env.apikey,
       },
     }),
+  postFile: <T>(url: string, file: any) =>
+    axios.post<T>(`${env.server}${url}`, file, {
+      headers: {
+        apikey: env.apikey,
+        "Content-Type": "multipart/form-data",
+      },
+    }),
 };
 
 /*
@@ -147,6 +154,14 @@ export const usePost = <T, S>(
     url,
     params,
     updater
+  );
+};
+
+export const usePostFile = <T, S>(url: string, file?: any) => {
+  return useGenericMutation<T, S>(
+    (data) => api.postFile<S>(url, data),
+    url,
+    file
   );
 };
 
