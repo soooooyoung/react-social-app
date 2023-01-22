@@ -5,11 +5,12 @@
   padding: 16px;
   height: 100%;
   justify-content: space-between;
+
   .content {
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-    padding: 16px;
+    padding: 24px;
     gap: 16px;
     background-color: #ffffff;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
@@ -17,20 +18,21 @@
     .deleteBtn {
       margin-top: -2px;
     }
-
     .profile-img-container {
       align-self: center;
     }
     .username {
-      align-self: center;
+      font-family: "Unbounded";
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+    .description {
+      color: var(--dark-gray);
     }
     .content-ui {
       display: flex;
-
       align-items: center;
-
       gap: 8px;
-
       span {
         font-size: 16px;
         color: var(--dark-gray);

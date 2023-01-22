@@ -1,0 +1,31 @@
+.menu-wrapper {
+  .menuBtn {
+    color: var(--dark-gray);
+  }
+  .menuBtn:hover {
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+}
+
+.menu {
+  white-space: nowrap;
+  .menu-item {
+    font-size: 16px;
+    color: var(--dark-gray);
+  }
+  .menu-item:hover {
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+  .menu-title {
+    padding: 16px;
+  }
+
+  ul {
+    padding: 8px !important;
+    li {
+      min-width: 150px;
+    }
+  }
+}

@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  CameraOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  QuestionCircleOutlined,
+  CameraFilled,
+  DeleteFilled,
+  EditFilled,
+  QuestionCircleFilled,
   UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Input, Popconfirm } from "antd";
@@ -81,26 +81,8 @@ export const Profile = ({ userId, size }: Props) => {
   return (
     <div className="profile">
       <div className="content">
-        <div className="content-ui">
-          <FileUploader
-            onUpload={handleFileUpload}
-            icon={<CameraOutlined className="uploadBtn" />}
-          />
-          {data?.profileImgUrl && (
-            <Popconfirm
-              showArrow={false}
-              icon={<QuestionCircleOutlined style={{ color: "#ffb3c1" }} />}
-              title="Delete Profile Image"
-              description="Are you sure you want to delete your picture?"
-              onConfirm={handleFileDelete}
-            >
-              <DeleteOutlined className="deleteBtn" />
-            </Popconfirm>
-          )}
-          <div className="content-space" />
-          <EditOutlined className="editBtn" onClick={handleClickEditButton} />
-        </div>
-
+        {" "}
+        <span className="username">{getUsername(data)}</span>
         <div className="profile-img-container">
           <Avatar
             shape="square"
@@ -109,17 +91,36 @@ export const Profile = ({ userId, size }: Props) => {
             src={data?.profileImgUrl && `${env.server}${data?.profileImgUrl}`}
           />
         </div>
-
-        <span className="username">{getUsername(data)}</span>
+        <div className="content-ui">
+          <FileUploader
+            onUpload={handleFileUpload}
+            icon={<CameraFilled className="uploadBtn" />}
+          />
+          {data?.profileImgUrl && (
+            <Popconfirm
+              overlayStyle={{ position: "fixed" }}
+              showArrow={false}
+              icon={<QuestionCircleFilled style={{ color: "#ffb3c1" }} />}
+              title="Delete Profile Image"
+              description="Are you sure you want to delete your picture?"
+              onConfirm={handleFileDelete}
+            >
+              <DeleteFilled className="deleteBtn" />
+            </Popconfirm>
+          )}
+          <div className="content-space" />
+          <EditFilled className="editBtn" onClick={handleClickEditButton} />
+        </div>
         {editMode ? (
           <Input.TextArea
             className="text-area"
             onChange={handleChangeEditValue}
+            onBlur={handleClickEditButton}
             maxLength={500}
             value={editValue}
           />
         ) : (
-          <span>
+          <span className="description">
             {data?.intro?.split("\n").map((content, idx) => (
               <React.Fragment key={idx}>
                 {content}
