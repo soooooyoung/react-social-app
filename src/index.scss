@@ -85,6 +85,7 @@ span {
   width: 0;
   height: 0;
 }
+
 /*
 *component
 */
@@ -92,6 +93,21 @@ span {
   white-space: "pre-wrap";
   resize: "none";
 }
+.item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  gap: 16px;
+  font-size: 1.2em;
+}
+
+.ui-icon {
+  color: var(--dark-gray);
+}
+.ui-icon:hover {
+  color: var(--primary-color);
+}
+
 .ui-button {
   display: flex;
   flex-direction: column;

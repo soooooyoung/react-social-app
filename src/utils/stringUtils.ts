@@ -1,3 +1,4 @@
+import { env } from "../config/env";
 import { User } from "../models";
 
 export const getUsername = (user?: User) => {
@@ -8,4 +9,11 @@ export const getUsername = (user?: User) => {
     return `${user.nickname} (${user.username})`;
   }
   return user.username;
+};
+
+export const getFileUrl = (url?: string) => {
+  if (!url) {
+    return "";
+  }
+  return `${env.server}${url}`;
 };

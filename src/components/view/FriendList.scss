@@ -9,16 +9,17 @@
     display: flex;
     justify-content: space-between;
   }
+
   .contacts {
     background-color: #ffffff;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
     border-radius: 8px;
     padding: 16px;
-    .item {
-      padding: 8px;
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
+  }
+}
+
+.modal {
+  .searchInput {
+    margin-bottom: 16px;
   }
 }

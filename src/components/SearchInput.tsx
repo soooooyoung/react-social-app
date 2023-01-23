@@ -17,14 +17,13 @@ export const SearchInput = (props: Props) => {
 
   return (
     <Input
+      {...props}
       className="searchInput"
-      placeholder="Search SNSUS"
       onChange={(e) => {
         setValue(e.target.value);
       }}
       value={value}
-      prefix={<SearchOutlined />}
-      {...props}
+      suffix={<SearchOutlined className="ui-icon" onClick={handleSubmit} />}
       onPressEnter={handleSubmit}
       onSubmit={handleSubmit}
     />

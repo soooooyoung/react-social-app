@@ -8,15 +8,15 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Input, Popconfirm } from "antd";
 import { ChangeEvent, useState } from "react";
+import { showErrorModal } from "../../utils/responseUtils";
 import { useFetchUser, useUpdateUser } from "../../api/user";
-import { getUsername } from "../../utils/stringUtils";
+import { getFileUrl, getUsername } from "../../utils/stringUtils";
 import { FileUploader } from "../FileUploader";
 import { AppFooter } from "../layout/AppFooter";
 import { UploadRequestOption } from "rc-upload/lib/interface";
 import { useDeleteImageProfile, useSaveImageProfile } from "../../api/file";
 import { env } from "../../config/env";
 import "./Profile.scss";
-import { showErrorModal } from "../../utils/responseUtils";
 
 interface Props {
   userId?: number;
@@ -81,14 +81,13 @@ export const Profile = ({ userId, size }: Props) => {
   return (
     <div className="profile">
       <div className="content">
-        {" "}
         <span className="username">{getUsername(data)}</span>
         <div className="profile-img-container">
           <Avatar
             shape="square"
             size={size || 240}
             icon={<UserOutlined />}
-            src={data?.profileImgUrl && `${env.server}${data?.profileImgUrl}`}
+            src={getFileUrl(data?.profileImgUrl)}
           />
         </div>
         <div className="content-ui">

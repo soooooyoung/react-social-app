@@ -11,9 +11,9 @@ export const useFetchUser = (
 
 export const useFetchUsers = (
   params?: UserQueryParams,
-  config?: UseQueryOptions<User, Error, User, QueryKeyT>
+  config?: UseQueryOptions<User[], Error, User[], QueryKeyT>
 ) => {
-  return useFetch<User>(`/user`, params, config);
+  return useFetch<User[]>(`/user`, params, config);
 };
 
 export const useUpdateUser = (userId?: number) =>

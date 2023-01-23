@@ -3,12 +3,7 @@ export interface LoginParams {
   password: string;
 }
 export interface UserQueryParams {
-  userId?: number;
-  username?: string;
-  nickname?: string;
-  email?: string;
-  statusCode?: string;
-  typeCode?: string;
+  keyword?: string;
 }
 
 export interface AuthTokenParams {
