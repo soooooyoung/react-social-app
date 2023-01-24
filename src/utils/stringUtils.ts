@@ -2,7 +2,7 @@ import { env } from "../config/env";
 import { User } from "../models";
 
 export const getUsername = (user?: User) => {
-  if (!user || user.statusCode === "I") {
+  if (!user) {
     return "Unknown";
   }
   if (user.nickname) {

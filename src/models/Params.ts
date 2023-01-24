@@ -3,7 +3,7 @@ export interface LoginParams {
   password: string;
 }
 export interface UserQueryParams {
-  keyword?: string;
+  q?: string;
 }
 
 export interface AuthTokenParams {

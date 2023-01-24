@@ -1,7 +1,13 @@
 import { UseQueryOptions } from "@tanstack/react-query";
 import { Friend, Friendship } from "../models";
 import { showErrorModal } from "../utils/responseUtils";
-import { QueryKeyT, useFetch, usePost } from "./reactQuery";
+import {
+  QueryKeyT,
+  useDelete,
+  useFetch,
+  usePost,
+  useUpdate,
+} from "./reactQuery";
 
 export const useFetchAllFriends = (
   userId?: number,
@@ -12,6 +18,7 @@ export const useFetchAllFriends = (
     {},
     {
       ...config,
+      retry: false,
       onError: (e) => {
         showErrorModal(e.message);
       },
@@ -23,25 +30,9 @@ export const useSaveFriendRequest = () => {
   return usePost<Friendship[], Friendship>("/friend");
 };
 
-// export const useSavePost = (userId?: number) => {
-//   return usePost<Post[], Post>(`/posts/${userId}`, {}, (array, newData) => [
-//     ...array,
-//     newData,
-//   ]);
-// };
-
-// export const useDeletePost = (userId?: number) => {
-//   return useDelete<Post[]>(`/posts/${userId}`, {}, (array, id) =>
-//     array.filter((post) => post.postId !== id)
-//   );
-// };
-
-// export const useUpdatePost = (userId?: number) =>
-//   useUpdate<Post[], Post>(`/posts/${userId}`, {}, (array, newData) =>
-//     array.map((post) => {
-//       if (post.postId === newData.postId) {
-//         return newData;
-//       }
-//       return post;
-//     })
-//   );
+export const useDeleteFriendRequest = () => {
+  return useDelete<Friendship>("/friend");
+};
+export const useUpdateFriendRequest = () => {
+  return useUpdate<Friendship[], Friendship>("/friend");
+};
