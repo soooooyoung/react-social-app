@@ -5,3 +5,4 @@ export type { Auth } from "./Auth";
 export type { Friendship, Friend } from "./Friendship";
 export type { Response, AuthResponse } from "./Response";
 export type { LoginParams, AuthTokenParams, UserQueryParams } from "./Params";
+export type { AppState } from "./AppState";

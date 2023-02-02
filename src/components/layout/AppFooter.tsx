@@ -9,6 +9,7 @@ export const AppFooter = (
 
   const changeLanguage = (lang: "ko" | "en") => {
     i18n.changeLanguage(lang);
+    localStorage.setItem("lang", lang);
   };
 
   return (
