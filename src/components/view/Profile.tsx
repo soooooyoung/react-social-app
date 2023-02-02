@@ -16,7 +16,7 @@ import { AppFooter } from "../layout/AppFooter";
 import { UploadRequestOption } from "rc-upload/lib/interface";
 import { useDeleteImageProfile, useSaveImageProfile } from "../../api/file";
 import { env } from "../../config/env";
-import "./Profile.scss";
+import "../../style/Profile.scss";
 
 interface Props {
   userId?: number;

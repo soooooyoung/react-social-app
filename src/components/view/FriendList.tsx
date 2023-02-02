@@ -14,7 +14,8 @@ import { useFetchUsers } from "../../api/user";
 import { getFileUrl } from "../../utils/stringUtils";
 import { showErrorModal } from "../../utils/responseUtils";
 import { User } from "../../models";
-import "./FriendList.scss";
+import "../../style/FriendList.scss";
+import { env } from "process";
 
 export const Friendlist = () => {
   const [keyword, setKeyword] = useState<string>("");
@@ -67,13 +68,13 @@ export const Friendlist = () => {
     if (user && user.userId && friend.userId) {
       await updateFriendRequest(
         {
-          requesterId: user.userId,
-          addresseeId: friend.userId,
+          requesterId: friend.userId,
+          addresseeId: user.userId,
           statusCode: "A",
         },
         {
           onError: () => {
-            showErrorModal("친구 요청에 실패했습니다");
+            showErrorModal("친구 수락에 실패했습니다");
           },
           onSuccess: async () => {
             await refetch();
@@ -117,7 +118,7 @@ export const Friendlist = () => {
               <Avatar
                 size="large"
                 icon={<UserOutlined />}
-                src={item.profileImgUrl}
+                src={getFileUrl(item?.profileImgUrl)}
               />
               <span>{item.username}</span>
             </div>

@@ -26,7 +26,7 @@ import {
   setSelectedPost,
 } from "./postSlice";
 import { Post } from "../models";
-import "./HomePage.scss";
+import "../style/HomePage.scss";
 
 export const HomePage = () => {
   /**

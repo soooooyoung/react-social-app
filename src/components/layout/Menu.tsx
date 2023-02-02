@@ -1,5 +1,5 @@
 import { Dropdown, MenuProps } from "antd";
-import "./Menu.scss";
+import "../../style/Menu.scss";
 
 interface Props {
   icon: React.ReactNode;

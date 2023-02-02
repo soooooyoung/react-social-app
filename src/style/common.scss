@@ -1,11 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Nunito:wght@200;400;700;1000&family=Space+Grotesk:wght@400;700&display=swap");
-
-:root {
-  --header-height: 56px;
-  --primary-color: #ffb3c1;
-  --gray: #ededf0;
-  --dark-gray: #8d8d98;
-}
+@import "./variables.scss";
 
 body {
   margin: 0;
@@ -24,15 +18,16 @@ code {
 span {
   font-family: "Nunito";
 }
+
 /**
-*layout
+*components
 */
 .wrapper {
   background-color: #ffffff;
 }
 
 .content {
-  background-color: var(--gray);
+  background-color: $gray;
 }
 
 .header {
@@ -42,7 +37,7 @@ span {
   gap: 16px;
   top: 0px;
   z-index: 1000;
-  height: var(--header-height);
+  height: $header-height;
   background-color: #ffffff;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -75,8 +70,8 @@ span {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  top: var(--header-height);
-  height: calc(100vh - var(--header-height));
+  top: $header-height;
+  height: calc(100vh - $header-height);
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -86,9 +81,6 @@ span {
   height: 0;
 }
 
-/*
-*component
-*/
 .text-area {
   white-space: "pre-wrap";
   resize: "none";
@@ -102,10 +94,10 @@ span {
 }
 
 .ui-icon {
-  color: var(--dark-gray);
+  color: $dark-gray;
 }
 .ui-icon:hover {
-  color: var(--primary-color);
+  color: $primary-color;
 }
 
 .ui-button {
