@@ -29,6 +29,7 @@
 
 ✔️ Handle log-in, log-out process  
 ✔️ Cookie Handled with HTTP only
+
 - Utilize Session Id to fetch Recent Logins
 - Enable SNS Login
 
@@ -46,7 +47,7 @@
 ✔️ Create, read, update, delete posts
 
 - Like, comments on posts
-✔️ ~~Follow, unfollow users~~ Add, Delete Friends 
+  ✔️ ~~Follow, unfollow users~~ Add, Delete Friends
 - Infinite scroll with Intersection Observer API
 
 ### Deployment
@@ -57,17 +58,29 @@
 
 ### Common
 
-✔️ Change language of application  
+✔️ Change language of application
 
 ## Functionality
 
 ### Login
 
+![](prev_login.gif)
+
 ### Write, Edit, Delete Post
+
+![](prev_post.gif)
 
 ### Send, Accept, Cancel Friend Request
 
-### Change Application Language  
+![](prev_friend.gif)
+
+### Change Application Language
+
+![](prev_lang.gif)
+
+### Edit, Upload, Delete Profile Image
+
+![](prev_picture.gif)
 
 ## Implementations
 
