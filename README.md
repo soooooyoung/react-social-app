@@ -10,6 +10,7 @@
 - [React Router](https://reactrouter.com/en/main)
 - [React Redux & Redux](https://react-redux.js.org/)
 - [Ant Design](https://ant.design/)
+- [react-i18next](https://react.i18next.com/)
 - [Redux Persist](https://www.npmjs.com/package/redux-persist)
 - [DayJS](https://day.js.org/)
 
@@ -28,7 +29,6 @@
 
 ✔️ Handle log-in, log-out process  
 ✔️ Cookie Handled with HTTP only
-
 - Utilize Session Id to fetch Recent Logins
 - Enable SNS Login
 
@@ -46,7 +46,7 @@
 ✔️ Create, read, update, delete posts
 
 - Like, comments on posts
-- Follow, unfollow users
+✔️ ~~Follow, unfollow users~~ Add, Delete Friends 
 - Infinite scroll with Intersection Observer API
 
 ### Deployment
@@ -57,26 +57,17 @@
 
 ### Common
 
-👉 Change language of application  
-👉 Image cache
+✔️ Change language of application  
 
 ## Functionality
 
 ### Login
 
-![](prev_login.gif)
+### Write, Edit, Delete Post
 
-### Write Post
+### Send, Accept, Cancel Friend Request
 
-![](prev_write.gif)
-
-### Edit Post
-
-![](prev_edit.gif)
-
-### Delete Post
-
-![](prev_delete.gif)
+### Change Application Language  
 
 ## Implementations
 
