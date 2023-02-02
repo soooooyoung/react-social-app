@@ -1,0 +1,28 @@
+{
+  "Forgot password?": "비밀번호를 잊으셨나요?",
+  "Log In": "로그인",
+  "Recent Logins": "최근 로그인",
+  "Click your picture or add an account": "사진을 클릭하거나 계정을 추가하세요.",
+  "Create new account": "회원가입",
+  "Enter your username": "아이디를 입력하세요",
+  "Enter your password": "비밀번호를 입력하세요",
+  "Please input your username!": "아이디를 입력하세요",
+  "Please input your password!": "비밀번호를 입력하세요",
+  "Wrong Password or Username": "로그인 정보가 틀렸습니다",
+
+  "Write your thoughts...": "지금 어떤 생각을 하고있나요?",
+  "Contacts": "연락처",
+  "Add": "추가",
+  "Updated": "수정일",
+  "Shop": "쇼핑",
+  "Settings": "설정",
+  "Log Out": "로그아웃",
+
+  "Friend Request Failed": "친구 요청에 실패했습니다",
+  "Friend Accept Failed": "친구 수락에 실패했습니다",
+  "Friend Delete Failed": "친구 거절에 실패했습니다",
+
+  "Cancel": "취소",
+  "Accept": "수락",
+  "Deny": "거절"
+}

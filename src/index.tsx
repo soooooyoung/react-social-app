@@ -2,11 +2,12 @@ import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import { store, persistor } from "./app/store";
+import { store, persistor } from "./app/redux/store";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { ConfigProvider } from "antd";
 import App from "./App";
+import "./app/i18n";
 import "./style/common.scss";
 
 const queryClient = new QueryClient();

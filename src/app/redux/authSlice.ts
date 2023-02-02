@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../app/rootReducer";
-import { Auth, AuthResponse } from "../models";
+import { RootState } from "./rootReducer";
+import { Auth, AuthResponse } from "../../models";
 
 const initialState: Auth = { isAuthenticated: false };
 

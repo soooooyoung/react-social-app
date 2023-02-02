@@ -1,7 +1,7 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Input, InputProps } from "antd";
 import { useState } from "react";
-import "./SearchInput.css";
+import "../style/SearchInput.scss";
 
 interface Props extends InputProps {
   onSearch?: (value?: string) => void;

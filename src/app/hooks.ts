@@ -1,7 +1,7 @@
 import { useCallback, useRef } from "react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { RootState } from "./rootReducer";
-import { AppDispatch } from "./store";
+import { RootState } from "./redux/rootReducer";
+import { AppDispatch } from "./redux/store";
 
 /**
  * Redux

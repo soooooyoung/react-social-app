@@ -1,9 +1,10 @@
 import { Layout, theme } from "antd";
 import { AppHeader } from "./components/layout/AppHeader";
-import { selectAuth } from "./app/authSlice";
+import { selectAuth } from "./app/redux/authSlice";
 import { useAppSelector } from "./app/hooks";
 import { Router } from "./components/routing/Router";
 import { AppFooter } from "./components/layout/AppFooter";
+import { withTranslation } from "react-i18next";
 
 const { Content } = Layout;
 const { useToken } = theme;
@@ -27,4 +28,4 @@ function App() {
   );
 }
 
-export default App;
+export default withTranslation()(App);

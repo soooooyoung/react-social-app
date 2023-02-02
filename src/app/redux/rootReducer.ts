@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import postSlice from "../pages/postSlice";
+import postSlice from "./postSlice";
 import loadingSlice from "./loadingSlice";
 import authSlice from "./authSlice";
 

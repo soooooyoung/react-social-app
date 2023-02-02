@@ -1,10 +1,12 @@
+@import "./variables.scss";
+
 .menu-wrapper {
   .menuBtn {
-    color: var(--dark-gray);
+    color: $dark-gray;
   }
   .menuBtn:hover {
     cursor: pointer;
-    color: var(--primary-color);
+    color: $primary-color;
   }
 }
 
@@ -12,11 +14,11 @@
   white-space: nowrap;
   .menu-item {
     font-size: 16px;
-    color: var(--dark-gray);
+    color: $dark-gray;
   }
   .menu-item:hover {
     cursor: pointer;
-    color: var(--primary-color);
+    color: $primary-color;
   }
   .menu-title {
     padding: 16px;

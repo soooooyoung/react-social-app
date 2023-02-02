@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 .profile {
   display: flex;
   flex-direction: column;
@@ -27,7 +29,7 @@
       font-weight: 700;
     }
     .description {
-      color: var(--dark-gray);
+      color: $dark-gray;
     }
     .content-ui {
       display: flex;
@@ -35,11 +37,11 @@
       gap: 8px;
       span {
         font-size: 16px;
-        color: var(--dark-gray);
+        color: $dark-gray;
       }
       span:hover {
         cursor: pointer;
-        color: var(--primary-color);
+        color: $primary-color;
       }
       .content-space {
         flex-grow: 2;

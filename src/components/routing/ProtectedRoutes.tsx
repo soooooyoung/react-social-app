@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Spin } from "antd";
 import { AxiosResponse } from "axios";
 import { LoadingOutlined } from "@ant-design/icons";
-import { reset, selectAuth, setAuth } from "../../app/authSlice";
+import { reset, selectAuth, setAuth } from "../../app/redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Navigate, Routes, RoutesProps, useLocation } from "react-router-dom";
 import { showErrorModal } from "../../utils/responseUtils";

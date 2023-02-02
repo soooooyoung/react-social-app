@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../app/rootReducer";
-import { Post } from "../models";
+import { RootState } from "./rootReducer";
+import { Post } from "../../models";
 
 const initialState: {
   selectedPost?: number;

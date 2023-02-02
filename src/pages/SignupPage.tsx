@@ -10,12 +10,12 @@ import { AxiosResponse } from "axios";
 import { useState } from "react";
 import { useCheckIsSafe, useSendSignupEmail } from "../api/signup";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { selectLoading, setLoading } from "../app/loadingSlice";
+import { selectLoading, setLoading } from "../app/redux/loadingSlice";
 import { ReCaptcha } from "../components/ReCaptcha";
 import { Response, User } from "../models";
 import { showErrorModal } from "../utils/responseUtils";
 import welcome from "../img/welcome.png";
-import "./SignupPage.css";
+import "../style/SignupPage.scss";
 
 export const SignupPage = () => {
   const [recaptchaStatus, setRecaptchaStatus] = useState<boolean>(false);

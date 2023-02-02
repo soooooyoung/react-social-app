@@ -14,21 +14,23 @@ import {
   useUpdatePost,
 } from "../api/post";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { Friendlist } from "../components/view/FriendList";
-import { Profile } from "../components/view/Profile";
+import { Friendlist } from "../components/layout/FriendList";
+import { Profile } from "../components/layout/Profile";
 import { showErrorModal } from "../utils/responseUtils";
-import { selectAuth } from "../app/authSlice";
+import { selectAuth } from "../app/redux/authSlice";
 import {
   resetSelectedPost,
   selectPost,
   setNewContent,
   setSelectedContent,
   setSelectedPost,
-} from "./postSlice";
+} from "../app/redux/postSlice";
 import { Post } from "../models";
 import "../style/HomePage.scss";
+import { useTranslation } from "react-i18next";
 
 export const HomePage = () => {
+  const { t } = useTranslation();
   /**
    * State Management
    */
@@ -129,7 +131,7 @@ export const HomePage = () => {
                 autoSize={{ minRows: 2, maxRows: 6 }}
                 maxLength={500}
                 value={newPostContent}
-                placeholder="Write your thoughts..."
+                placeholder={`${t("Write your thoughts...")}`}
                 onChange={(e) => {
                   dispatch(setNewContent(e.target.value));
                 }}

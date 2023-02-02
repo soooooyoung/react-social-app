@@ -5,15 +5,17 @@ import { Button, Form, Input, Spin } from "antd";
 import { showErrorModal } from "../utils/responseUtils";
 import { AuthResponse, LoginParams } from "../models";
 import { useAppDispatch } from "../app/hooks";
-import { setAuth } from "../app/authSlice";
+import { setAuth } from "../app/redux/authSlice";
+import { useTranslation } from "react-i18next";
 import { useLogin } from "../api/auth";
-import { RecentLogins } from "../components/view/RecentLogins";
-import "./SigninPage.css";
+import { RecentLogins } from "../components/layout/RecentLogins";
+import "../style/SigninPage.scss";
 
 export const SigninPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { mutateAsync, isLoading } = useLogin();
+  const { t } = useTranslation();
 
   const onFinish = async (values: LoginParams) => {
     await mutateAsync(values, {
@@ -26,7 +28,7 @@ export const SigninPage = () => {
           dispatch(setAuth(response.data));
           navigate("/");
         } else {
-          showErrorModal("Wrong Password or Username");
+          showErrorModal(`${t("Wrong Password or Username")}`);
         }
         return data;
       },
@@ -54,20 +56,29 @@ export const SigninPage = () => {
             <Form.Item
               name="username"
               rules={[
-                { required: true, message: "Please input your username!" },
+                {
+                  required: true,
+                  message: `${t("Please input your username!")}`,
+                },
               ]}
             >
-              <Input maxLength={100} placeholder="Enter your username" />
+              <Input
+                maxLength={100}
+                placeholder={`${t("Enter your username")}`}
+              />
             </Form.Item>
             <Form.Item
               name="password"
               rules={[
-                { required: true, message: "Please input your password!" },
+                {
+                  required: true,
+                  message: `${t("Please input your password!")}`,
+                },
               ]}
             >
               <Input.Password
                 maxLength={100}
-                placeholder="Enter your password"
+                placeholder={`${t("Enter your password")}`}
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
@@ -75,9 +86,9 @@ export const SigninPage = () => {
             </Form.Item>
             <div className="ui-button">
               <Button type="primary" htmlType="submit">
-                Log In
+                {t("Log In")}
               </Button>
-              <a>Forgot password?</a>
+              <a>{t("Forgot password?")}</a>
               <div className="separator"></div>
               <Button
                 type="primary"
@@ -85,7 +96,7 @@ export const SigninPage = () => {
                   navigate("/signup");
                 }}
               >
-                Create new account
+                {t("Create new account")}
               </Button>
             </div>
           </Form>

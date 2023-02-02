@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useMutationObserver } from "../app/hooks";
-import { setLoading } from "../app/loadingSlice";
+import { setLoading } from "../app/redux/loadingSlice";
 import { env } from "../config/env";
 import { showErrorModal } from "../utils/responseUtils";
 import { useLoadScript } from "../utils/scriptUtils";

@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Button, Tooltip } from "antd";
 import { Link } from "react-router-dom";
-import { reset, selectAuth } from "../../app/authSlice";
+import { reset, selectAuth } from "../../app/redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { env } from "../../config/env";
 import { SearchInput } from "../SearchInput";

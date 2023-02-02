@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useVerifyEmail } from "../api/signup";
 import welcome2 from "../img/welcome2.png";
 import noresult from "../img/noresult.png";
-import "./SignupPage.css";
+import "../style/SignupPage.scss";
 
 export const SignupEmailPage = () => {
   const { token } = useParams();
