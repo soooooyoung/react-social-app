@@ -1,25 +1,28 @@
+@import "./variables.scss";
+
 .friendlist {
   display: flex;
   flex-direction: column;
-  margin-top: 16px;
-  gap: 16px;
-  padding: 16px;
+  margin-top: $gap;
+  gap: $gap;
+  padding: $gap;
 
   .contacts-title {
     display: flex;
     justify-content: space-between;
+    padding: 0px $gap;
   }
 
   .contacts {
     background-color: #ffffff;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
     border-radius: 8px;
-    padding: 16px;
+    padding: $gap;
   }
 }
 
 .modal {
   .searchInput {
-    margin-bottom: 16px;
+    margin-bottom: $gap;
   }
 }

@@ -1,4 +1,4 @@
-import { UserOutlined, PlusOutlined } from "@ant-design/icons";
+import { UserOutlined, UserAddOutlined } from "@ant-design/icons";
 import { Avatar, Button } from "antd";
 import { useState } from "react";
 import {
@@ -151,7 +151,7 @@ export const FriendEdit = ({ user }: Props) => {
             <span>{item.username}</span>
             <div className="flex-space" />
 
-            <PlusOutlined
+            <UserAddOutlined
               className="ui-icon"
               onClick={() => handleRequestFriend(item)}
             />

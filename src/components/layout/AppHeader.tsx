@@ -6,7 +6,7 @@ import {
   SettingOutlined,
   ShopOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Tooltip } from "antd";
+import { Avatar, Badge } from "antd";
 import { Link } from "react-router-dom";
 import { reset, selectAuth } from "../../app/redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -35,10 +35,12 @@ export const AppHeader = (
       <SearchInput />
       <div className="flex-space" /> <MessageFilled />
       <Link to="/">
-        <Avatar
-          icon={<></>}
-          src={user?.profileImgUrl && `${env.server}${user?.profileImgUrl}`}
-        />
+        <Badge count={1}>
+          <Avatar
+            icon={<></>}
+            src={user?.profileImgUrl && `${env.server}${user?.profileImgUrl}`}
+          />
+        </Badge>
       </Link>
       <Menu
         icon={<MenuOutlined className="menuBtn" />}
@@ -68,11 +70,6 @@ export const AppHeader = (
             key: "1",
           },
         ]}
-        // options={[
-        //   <div className="logoutBtn" onClick={handleLogout}>
-        //     Log Out
-        //   </div>,
-        // ]}
       />
     </div>
   );
