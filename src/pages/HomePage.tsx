@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 import {
-  CommentOutlined,
-  LikeOutlined,
   EditOutlined,
   DeleteOutlined,
+  BulbFilled,
+  GlobalOutlined,
+  LockOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
-import { Button, Card, Input } from "antd";
+import { Button, Card, Input, Popconfirm } from "antd";
 import {
   useDeletePost,
   useFetchAllPosts,
@@ -25,9 +27,17 @@ import {
   setSelectedContent,
   setSelectedPost,
 } from "../app/redux/postSlice";
-import { Post } from "../models";
+import { Post, PostStatus } from "../models";
 import "../style/HomePage.scss";
 import { useTranslation } from "react-i18next";
+import { PostStatusIcon } from "../components/layout/PostStatusIcon";
+import { Selector } from "../components/layout/Selector";
+
+const postStatusOptions = [
+  { label: <GlobalOutlined className="ui-icon" />, value: "G" },
+  { label: <LockOutlined className="ui-icon" />, value: "P" },
+  { label: <TeamOutlined className="ui-icon" />, value: "F" },
+];
 
 export const HomePage = () => {
   const { t } = useTranslation();
@@ -38,6 +48,8 @@ export const HomePage = () => {
     useAppSelector(selectPost);
   const { user } = useAppSelector(selectAuth);
   const dispatch = useAppDispatch();
+  const [postStatus, setPostStatus] = useState<PostStatus>("G");
+  const [editMode, setEditMode] = useState<boolean>(false);
   /**
    * Query
    */
@@ -86,7 +98,6 @@ export const HomePage = () => {
     if (
       !selectedPost ||
       !selectedPostContent ||
-      selectedPostContent === "undefined" ||
       selectedPostContent.replace(/\s/g, "").length < 1
     ) {
       return;
@@ -95,6 +106,7 @@ export const HomePage = () => {
       {
         postId: selectedPost,
         content: selectedPostContent,
+        statusCode: postStatus,
       },
       {
         onError: (e) => {
@@ -107,12 +119,19 @@ export const HomePage = () => {
     );
   };
 
-  const handleClickEditButton = async (post: Post) => {
-    if (selectedPost) {
-      await handleUpdatePost();
-      return;
-    }
+  const handleSelectPostStatus = (status: PostStatus, post: Post) => {
+    setPostStatus(status);
     dispatch(setSelectedPost(post));
+  };
+
+  const handleClickEditButton = async (post: Post) => {
+    if (editMode && selectedPost === post.postId) {
+      await handleUpdatePost();
+      setEditMode(false);
+    } else {
+      dispatch(setSelectedPost(post));
+      setEditMode(true);
+    }
   };
 
   return (
@@ -144,61 +163,87 @@ export const HomePage = () => {
             </div>
           </Card>
         </div>
-        {data?.map((item, idx) => (
-          <div key={idx} className="card-wrapper">
-            <Card
-              className="card"
-              actions={[
-                // <LikeOutlined key="like"  />,
-                // <CommentOutlined key="comment"  />,
-                <EditOutlined
-                  key="edit"
-                  onClick={() => handleClickEditButton(item)}
-                />,
-
-                <DeleteOutlined
-                  key="delete"
-                  onClick={() => item.postId && handleDeletePost(item.postId)}
-                />,
-              ]}
-            >
-              <Card.Meta
-                title={
-                  selectedPost && selectedPost === item.postId ? (
-                    <Input.TextArea
-                      className="textArea"
-                      bordered={false}
-                      maxLength={500}
-                      autoSize={{ minRows: 2, maxRows: 10 }}
-                      value={selectedPostContent}
-                      onChange={(e) => {
-                        dispatch(setSelectedContent(e.target.value));
+        {data &&
+          data.map((item, idx) => (
+            <div key={idx} className="card-wrapper">
+              <Card
+                className="card"
+                extra={
+                  selectedPost === item.postId ? (
+                    <Selector
+                      style={{
+                        display: "flex",
+                        gap: 16,
+                        margin: "auto",
+                        justifyContent: "center",
                       }}
+                      options={postStatusOptions}
+                      value={postStatus}
+                      onSelect={(status) =>
+                        handleSelectPostStatus(status as PostStatus, item)
+                      }
                     />
                   ) : (
-                    <span className="text">
-                      {item.content?.split("\n").map((content, idx) => (
-                        <React.Fragment key={idx}>
-                          {content}
-                          <br />
-                        </React.Fragment>
-                      ))}
-                    </span>
+                    <div
+                      className="ui-icon"
+                      onClick={() => handleClickEditButton(item)}
+                    >
+                      <PostStatusIcon postStatus={item.statusCode} />
+                    </div>
                   )
                 }
-                description={
-                  <div>
-                    {dayjs(item.created_date).format("YYYY.MM.DD HH:mm:ss")}
-                    {item.updated_date !== "0000-00-00 00:00:00" &&
-                      ` / Updated: ${dayjs(item.updated_date).format(
-                        "YYYY.MM.DD HH:mm:ss"
-                      )}`}
-                  </div>
-                }
-              />
-            </Card>
-          </div>
-        ))}
+                actions={[
+                  // <LikeOutlined key="like"  />,
+                  // <CommentOutlined key="comment"  />,
+                  <EditOutlined
+                    key="edit"
+                    onClick={() => handleClickEditButton(item)}
+                  />,
+
+                  <DeleteOutlined
+                    key="delete"
+                    onClick={() => item.postId && handleDeletePost(item.postId)}
+                  />,
+                ]}
+              >
+                <Card.Meta
+                  title={
+                    editMode && item.postId === selectedPost ? (
+                      <Input.TextArea
+                        className="textArea"
+                        bordered={false}
+                        maxLength={500}
+                        autoSize={{ minRows: 2, maxRows: 10 }}
+                        value={selectedPostContent}
+                        onBlur={handleUpdatePost}
+                        onChange={(e) => {
+                          dispatch(setSelectedContent(e.target.value));
+                        }}
+                      />
+                    ) : (
+                      <span className="text">
+                        {item.content?.split("\n").map((content, idx) => (
+                          <React.Fragment key={idx}>
+                            {content}
+                            <br />
+                          </React.Fragment>
+                        ))}
+                      </span>
+                    )
+                  }
+                  description={
+                    <div>
+                      {dayjs(item.created_date).format("YYYY.MM.DD HH:mm:ss")}
+                      {item.updated_date !== "0000-00-00 00:00:00" &&
+                        ` / Updated: ${dayjs(item.updated_date).format(
+                          "YYYY.MM.DD HH:mm:ss"
+                        )}`}
+                    </div>
+                  }
+                />
+              </Card>
+            </div>
+          ))}
       </div>
       <div className="sider">
         <Friendlist />
