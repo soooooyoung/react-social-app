@@ -1,5 +1,6 @@
 import { Navigate, Route } from "react-router-dom";
 import { HomePage, SigninPage, SignupPage } from "../../pages";
+import { PrivacyPage } from "../../pages/PrivacyPage";
 import { SignupEmailPage } from "../../pages/SignupEmailPage";
 import { TermsPage } from "../../pages/TermsPage";
 import { PrivateRoute } from "./PrivateRoute";
@@ -36,6 +37,11 @@ export const Router = () => {
       <Route
         path="/terms"
         element={<TermsPage />}
+        errorElement={<>Oops! Something went wrong.</>}
+      />
+      <Route
+        path="/privacy"
+        element={<PrivacyPage />}
         errorElement={<>Oops! Something went wrong.</>}
       />
       <Route path="/404" element={<>pageNotFound</>} />
