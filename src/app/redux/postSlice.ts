@@ -2,32 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./rootReducer";
 import { Post } from "../../models";
 
-const initialState: {
-  selectedPost?: number;
-  selectedPostContent?: string;
-  newPostContent?: string;
-} = {};
+const initialState: Post = {};
 
 const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
-    resetSelectedPost: (state) => {
-      state.selectedPost = undefined;
-      state.selectedPostContent = undefined;
-      return state;
-    },
-    setSelectedPost: (state, { payload }: PayloadAction<Post>) => {
-      state.selectedPost = payload.postId;
-      state.selectedPostContent = payload.content;
-      return state;
-    },
-    setSelectedContent: (state, { payload }: PayloadAction<string>) => {
-      state.selectedPostContent = payload;
-      return state;
-    },
-    setNewContent: (state, { payload }: PayloadAction<string>) => {
-      state.newPostContent = payload;
+    resetPost: () => initialState,
+    setPost: (state, { payload }: PayloadAction<Post>) => {
+      state = payload;
       return state;
     },
   },
@@ -36,11 +19,6 @@ const postSlice = createSlice({
 
 export const selectPost = (state: RootState) => state.post;
 
-export const {
-  setNewContent,
-  setSelectedPost,
-  setSelectedContent,
-  resetSelectedPost,
-} = postSlice.actions;
+export const { resetPost, setPost } = postSlice.actions;
 
 export default postSlice;
