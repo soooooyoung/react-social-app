@@ -28,6 +28,10 @@ export const PostList = ({ userId }: Props) => {
   const { mutateAsync: updatePostAsync } = useUpdatePost(userId);
   const { mutateAsync: deletePostAsync } = useDeletePost(userId);
 
+  const handleChangePostInput = (post: Post) => {
+    dispatch(setPost(post));
+  };
+
   const handleSubmitPost = async () => {
     if (!isValidContent(post.content)) {
       return;
@@ -98,7 +102,7 @@ export const PostList = ({ userId }: Props) => {
               placeholder={`${t("Write your thoughts...")}`}
               onFocus={() => setEditMode(false)}
               onChange={(e) => {
-                dispatch(setPost({ content: e.target.value }));
+                handleChangePostInput({ content: e.target.value });
               }}
             />
             <Button icon={<EditOutlined />} onClick={handleSubmitPost} />
@@ -110,7 +114,6 @@ export const PostList = ({ userId }: Props) => {
           item={item}
           key={idx}
           editMode={editMode && item.postId === post.postId}
-          content={post.content}
           onToggleEdit={() => {
             handleClickEditButton(item);
           }}
@@ -118,7 +121,7 @@ export const PostList = ({ userId }: Props) => {
             if (item.postId) handleDeletePost(item.postId);
           }}
           onChange={(post) => {
-            dispatch(setPost(post));
+            handleChangePostInput(post);
           }}
         />
       ))}

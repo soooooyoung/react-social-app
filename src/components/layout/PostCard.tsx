@@ -13,12 +13,13 @@ import { Card, Input } from "antd";
 import { Post } from "../../models";
 import { PostStatusIcon } from "./PostStatusIcon";
 import { Selector } from "./Selector";
+import { useAppSelector } from "../../app/hooks";
+import { selectPost } from "../../app/redux/postSlice";
 
 interface Props {
   item: Post;
   idx?: string | number;
   editMode?: boolean;
-  content?: string;
   onToggleEdit?: () => void;
   onDelete?: () => void;
   onSave?: () => void;
@@ -33,7 +34,6 @@ const postStatusOptions = [
 
 export const PostCard = ({
   editMode,
-  content,
   item,
   idx,
   onToggleEdit,
@@ -41,6 +41,8 @@ export const PostCard = ({
   onChange,
   onSave,
 }: Props) => {
+  const post = useAppSelector(selectPost);
+
   const handleToggleEdit = () => {
     if (onToggleEdit) onToggleEdit();
   };
@@ -71,13 +73,14 @@ export const PostCard = ({
                 justifyContent: "center",
               }}
               onSelect={(value) => {
+                console.log(value);
                 handleChange({
                   ...item,
                   statusCode: value as Post["statusCode"],
                 });
               }}
               options={postStatusOptions}
-              value={item.statusCode}
+              value={post.statusCode}
             />
           ) : (
             <div className="ui-icon" onClick={handleToggleEdit}>
@@ -105,7 +108,7 @@ export const PostCard = ({
                 bordered={false}
                 maxLength={500}
                 autoSize={{ minRows: 2, maxRows: 10 }}
-                value={editMode ? content : item.content}
+                value={post.content}
                 onBlur={handleSave}
                 onChange={(e) => {
                   handleChange({ ...item, content: e.target.value });
