@@ -18,7 +18,6 @@ const authSlice = createSlice({
       state.user = payload.result.user;
     },
   },
-  extraReducers: (builder) => {},
 });
 
 export const selectAuth = (state: RootState) => state.auth;

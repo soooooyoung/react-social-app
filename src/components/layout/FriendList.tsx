@@ -16,7 +16,11 @@ import "../../style/FriendList.scss";
 import { User } from "../../models";
 import { showErrorModal } from "../../utils/responseUtils";
 
-export const Friendlist = () => {
+interface Props {
+  onClickFriend?: (friendId: number) => void;
+}
+
+export const Friendlist = ({ onClickFriend }: Props) => {
   const { t } = useTranslation();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const { user } = useAppSelector(selectAuth);
@@ -44,6 +48,13 @@ export const Friendlist = () => {
   const handleCloseModal = () => {
     setModalVisible(false);
   };
+
+  const handleClickFriend = (friendId: number) => {
+    if (onClickFriend) {
+      onClickFriend(friendId);
+    }
+  };
+
   return (
     <div className="friendlist">
       <div className="contacts-title">
@@ -59,13 +70,18 @@ export const Friendlist = () => {
                 icon={<UserOutlined />}
                 src={getFileUrl(item?.profileImgUrl)}
               />
-              <span>{item.username}</span>
+              <span
+                className="ui-icon"
+                onClick={() => handleClickFriend(item.userId)}
+              >
+                {item.username}
+              </span>
               <div className="flex-space" />
               <Popconfirm
                 overlayStyle={{ position: "fixed" }}
                 showArrow={false}
                 icon={<QuestionCircleFilled style={{ color: "#ffb3c1" }} />}
-                title="Delete Profile Image"
+                title="Delete Friend"
                 description="Are you sure you want to delete your friend?"
                 onConfirm={() => handleDeleteFriendship(item)}
               >

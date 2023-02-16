@@ -10,20 +10,22 @@ import {
   useDeletePost,
 } from "../../api/post";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectAuth } from "../../app/redux/authSlice";
 import { selectPost, setPost, resetPost } from "../../app/redux/postSlice";
 import { Post } from "../../models";
 import { showErrorModal } from "../../utils/responseUtils";
 import { PostCard } from "./PostCard";
 
 interface Props {
-  userId?: number;
+  currentId?: number;
 }
 
-export const PostList = ({ userId }: Props) => {
+export const PostList = ({ currentId }: Props) => {
   const dispatch = useAppDispatch();
   const post = useAppSelector(selectPost);
+  const userId = useAppSelector(selectAuth).user?.userId;
   const { t } = useTranslation();
-  const { data, refetch } = useFetchAllPosts(userId);
+  const { data, refetch } = useFetchAllPosts(currentId);
   const [editMode, setEditMode] = useState<boolean>(false);
   const { mutateAsync: savePostAsync } = useSavePost(userId);
   const { mutateAsync: updatePostAsync } = useUpdatePost(userId);
@@ -129,26 +131,28 @@ export const PostList = ({ userId }: Props) => {
 
   return (
     <div className="list">
-      <div className="card-wrapper">
-        <Card className="card">
-          <div className="text-wrapper">
-            <Input.TextArea
-              className="text-area"
-              autoFocus
-              rows={3}
-              value={editMode ? "" : post.content}
-              autoSize={{ minRows: 2, maxRows: 6 }}
-              maxLength={500}
-              placeholder={`${t("Write your thoughts...")}`}
-              onFocus={() => setEditMode(false)}
-              onChange={(e) => {
-                handleChangePostInput({ content: e.target.value });
-              }}
-            />
-            <Button icon={<EditOutlined />} onClick={handleSubmitPost} />
-          </div>
-        </Card>
-      </div>
+      {currentId === userId && (
+        <div className="card-wrapper">
+          <Card className="card">
+            <div className="text-wrapper">
+              <Input.TextArea
+                className="text-area"
+                autoFocus
+                rows={3}
+                value={editMode ? "" : post.content}
+                autoSize={{ minRows: 2, maxRows: 6 }}
+                maxLength={500}
+                placeholder={`${t("Write your thoughts...")}`}
+                onFocus={() => setEditMode(false)}
+                onChange={(e) => {
+                  handleChangePostInput({ content: e.target.value });
+                }}
+              />
+              <Button icon={<EditOutlined />} onClick={handleSubmitPost} />
+            </div>
+          </Card>
+        </div>
+      )}
       {data?.map((item, idx) => (
         <PostCard
           item={item}

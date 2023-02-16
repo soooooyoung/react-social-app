@@ -15,8 +15,9 @@ import { FileUploader } from "../FileUploader";
 import { AppFooter } from "../layout/AppFooter";
 import { UploadRequestOption } from "rc-upload/lib/interface";
 import { useDeleteImageProfile, useSaveImageProfile } from "../../api/file";
-import { env } from "../../config/env";
 import "../../style/Profile.scss";
+import { useAppSelector } from "../../app/hooks";
+import { selectAuth } from "../../app/redux/authSlice";
 
 interface Props {
   userId?: number;
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export const Profile = ({ userId, size }: Props) => {
+  const myId = useAppSelector(selectAuth).user?.userId;
   const { data, refetch } = useFetchUser(userId, {
     enabled: !!userId,
   });
@@ -90,26 +92,28 @@ export const Profile = ({ userId, size }: Props) => {
             src={getFileUrl(data?.profileImgUrl)}
           />
         </div>
-        <div className="content-ui">
-          <FileUploader
-            onUpload={handleFileUpload}
-            icon={<CameraFilled className="uploadBtn" />}
-          />
-          {data?.profileImgUrl && (
-            <Popconfirm
-              overlayStyle={{ position: "fixed" }}
-              showArrow={false}
-              icon={<QuestionCircleFilled style={{ color: "#ffb3c1" }} />}
-              title="Delete Profile Image"
-              description="Are you sure you want to delete your picture?"
-              onConfirm={handleFileDelete}
-            >
-              <DeleteFilled className="deleteBtn" />
-            </Popconfirm>
-          )}
-          <div className="content-space" />
-          <EditFilled className="editBtn" onClick={handleClickEditButton} />
-        </div>
+        {myId === userId && (
+          <div className="content-ui">
+            <FileUploader
+              onUpload={handleFileUpload}
+              icon={<CameraFilled className="uploadBtn" />}
+            />
+            {data?.profileImgUrl && (
+              <Popconfirm
+                overlayStyle={{ position: "fixed" }}
+                showArrow={false}
+                icon={<QuestionCircleFilled style={{ color: "#ffb3c1" }} />}
+                title="Delete Profile Image"
+                description="Are you sure you want to delete your picture?"
+                onConfirm={handleFileDelete}
+              >
+                <DeleteFilled className="deleteBtn" />
+              </Popconfirm>
+            )}
+            <div className="content-space" />
+            <EditFilled className="editBtn" onClick={handleClickEditButton} />
+          </div>
+        )}
         {editMode ? (
           <Input.TextArea
             className="text-area"

@@ -8,7 +8,6 @@ import {
   LockOutlined,
   TeamOutlined,
   CheckOutlined,
-  HeartFilled,
   LikeFilled,
   CommentOutlined,
 } from "@ant-design/icons";
@@ -93,29 +92,48 @@ export const PostCard = ({
               value={post.statusCode}
             />
           ) : (
-            <div className="ui-icon" onClick={handleToggleEdit}>
+            <div
+              className="ui-icon"
+              onClick={() => {
+                if (userId === item.userId) handleToggleEdit();
+              }}
+            >
               <PostStatusIcon postStatus={item.statusCode} />
             </div>
           )
         }
-        actions={[
-          <div key="like" onClick={handleToggleLike}>
-            {item.likedIds?.length}{" "}
-            {item.likedIds?.find((id) => id === userId) ? (
-              <LikeFilled />
-            ) : (
-              <LikeOutlined />
-            )}
-          </div>,
-          <CommentOutlined key="comment" />,
-          editMode ? (
-            <CheckOutlined key="edit" onClick={handleToggleEdit} />
-          ) : (
-            <EditOutlined key="edit" onClick={handleToggleEdit} />
-          ),
+        actions={
+          userId === item.userId
+            ? [
+                <div key="like" onClick={handleToggleLike}>
+                  {item.likedIds?.length}{" "}
+                  {item.likedIds?.find((id) => id === userId) ? (
+                    <LikeFilled />
+                  ) : (
+                    <LikeOutlined />
+                  )}
+                </div>,
+                <CommentOutlined key="comment" />,
+                editMode ? (
+                  <CheckOutlined key="edit" onClick={handleToggleEdit} />
+                ) : (
+                  <EditOutlined key="edit" onClick={handleToggleEdit} />
+                ),
 
-          <DeleteOutlined key="delete" onClick={handleDelete} />,
-        ]}
+                <DeleteOutlined key="delete" onClick={handleDelete} />,
+              ]
+            : [
+                <div key="like" onClick={handleToggleLike}>
+                  {item.likedIds?.length}{" "}
+                  {item.likedIds?.find((id) => id === userId) ? (
+                    <LikeFilled />
+                  ) : (
+                    <LikeOutlined />
+                  )}
+                </div>,
+                <CommentOutlined key="comment" />,
+              ]
+        }
       >
         <Card.Meta
           title={

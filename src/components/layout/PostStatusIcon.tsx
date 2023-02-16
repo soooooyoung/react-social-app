@@ -4,6 +4,7 @@ import {
   LockOutlined,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
+import { Tooltip } from "antd";
 import { PostStatus } from "../../models";
 
 interface Props {
@@ -17,6 +18,18 @@ export const PostStatusIcon = ({ postStatus }: Props) => {
     F: <TeamOutlined />,
     B: <EyeInvisibleOutlined />,
   };
-  if (postStatus) return postIcon[postStatus];
+
+  const postTitle = {
+    G: "Global",
+    P: "Private",
+    F: "Friends Only",
+    B: "Blocked",
+  };
+  if (postStatus)
+    return (
+      <Tooltip color="#ffb3c1" title={postTitle[postStatus]}>
+        {postIcon[postStatus]}
+      </Tooltip>
+    );
   return <></>;
 };

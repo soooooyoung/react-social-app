@@ -10,10 +10,9 @@ const appSlice = createSlice({
   reducers: {
     reset: () => initialState,
   },
-  extraReducers: (builder) => {},
 });
 
-export const selectLang = (state: RootState) => state.auth;
+export const selectApp = (state: RootState) => state.app;
 
 export const { reset } = appSlice.actions;
 

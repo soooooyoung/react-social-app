@@ -14,6 +14,7 @@ export const Router = () => {
         element={<PrivateRoute component={<HomePage />} />}
         errorElement={<>Oops! Something went wrong.</>}
       />
+      <Route path="/:id" element={<PrivateRoute component={<HomePage />} />} />
       <Route
         path="/home"
         element={<PrivateRoute component={<HomePage />} />}

@@ -1,5 +1,4 @@
 import {
-  AppstoreFilled,
   ExportOutlined,
   MenuOutlined,
   MessageFilled,
@@ -30,8 +29,9 @@ export const AppHeader = (
 
   return (
     <div {...props}>
-      <img src={"/logo192.png"} alt="S" />
-      {/* <span className="logo-symbol noselect">S</span> */}
+      <Link to="/">
+        <img src={"/logo192.png"} alt="S" />{" "}
+      </Link>
       <SearchInput />
       <div className="flex-space" /> <MessageFilled />
       <Link to="/">
