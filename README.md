@@ -42,12 +42,12 @@
 
 ✔️ Add terms of service
 
-### Dashboard Page
+### Post Page
 
-✔️ Create, read, update, delete posts
+✔️ Create, read, update, delete posts  
+✔️ Add, Delete Friends  
+✔️ Like, comments on posts
 
-- Like, comments on posts
-  ✔️ ~~Follow, unfollow users~~ Add, Delete Friends
 - Infinite scroll with Intersection Observer API
 
 ### Deployment
@@ -59,6 +59,9 @@
 ### Common
 
 ✔️ Change language of application
+
+- Chat Service
+- Notification Service
 
 ## Functionality
 
