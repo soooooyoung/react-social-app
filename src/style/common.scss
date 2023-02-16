@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Nunito:wght@200;400;700;1000&family=Space+Grotesk:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Nunito:wght@200;400;700;800;900;1000&family=Space+Grotesk:wght@400;700&display=swap");
 @import "./variables.scss";
 
 body {
@@ -17,6 +17,13 @@ code {
 
 span {
   font-family: "Nunito";
+}
+
+/**
+* decoration
+*/
+.bold {
+  font-weight: 800;
 }
 
 /**
@@ -141,6 +148,12 @@ span {
   background-color: #000000;
 }
 
+.list-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  margin-bottom: $gap;
+}
 /**
 Tools
 */

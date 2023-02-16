@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 .home-container {
   max-width: 1440px;
   margin: auto;
@@ -8,22 +10,28 @@
 .list {
   display: flex;
   flex-direction: column;
-  margin: 16px 0px;
+  margin: $gap 0px;
   flex-grow: 2;
   max-width: 744px;
-  gap: 16px;
+  gap: $gap;
 }
 .sider {
   width: 320px;
 }
 
-.card {
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  .card {
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+  }
 }
 
 .text-wrapper {
   display: flex;
   align-items: center;
+
   gap: 16px;
 }
 .text-wrapper button {
@@ -46,7 +54,7 @@
   .home-container {
     justify-content: center;
     .list {
-      padding: 16px;
+      padding: $gap;
     }
     .sider {
       width: 300px;

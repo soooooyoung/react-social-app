@@ -18,6 +18,7 @@ import { Selector } from "./Selector";
 import { useAppSelector } from "../../app/hooks";
 import { selectPost } from "../../app/redux/postSlice";
 import { selectAuth } from "../../app/redux/authSlice";
+import { selectComment } from "../../app/redux/commentSlice";
 
 interface Props {
   item: Post;
@@ -25,6 +26,7 @@ interface Props {
   editMode?: boolean;
   onToggleEdit?: () => void;
   onToggleLike?: () => void;
+  onToggleComment?: (mode: boolean) => void;
   onDelete?: () => void;
   onSave?: () => void;
   onChange?: (post: Post) => void;
@@ -42,10 +44,12 @@ export const PostCard = ({
   idx,
   onToggleEdit,
   onToggleLike,
+  onToggleComment,
   onDelete,
   onChange,
   onSave,
 }: Props) => {
+  const comment = useAppSelector(selectComment);
   const post = useAppSelector(selectPost);
   const userId = useAppSelector(selectAuth).user?.userId;
 
@@ -67,6 +71,10 @@ export const PostCard = ({
 
   const handleDelete = () => {
     if (onDelete) onDelete();
+  };
+
+  const handleToggleCommentMode = () => {
+    if (onToggleComment) onToggleComment(comment.postId !== item.postId);
   };
 
   return (
@@ -113,7 +121,10 @@ export const PostCard = ({
                     <LikeOutlined />
                   )}
                 </div>,
-                <CommentOutlined key="comment" />,
+                <CommentOutlined
+                  key="comment"
+                  onClick={handleToggleCommentMode}
+                />,
                 editMode ? (
                   <CheckOutlined key="edit" onClick={handleToggleEdit} />
                 ) : (
@@ -131,7 +142,10 @@ export const PostCard = ({
                     <LikeOutlined />
                   )}
                 </div>,
-                <CommentOutlined key="comment" />,
+                <CommentOutlined
+                  key="comment"
+                  onClick={handleToggleCommentMode}
+                />,
               ]
         }
       >

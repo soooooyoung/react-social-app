@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { env } from "../../config/env";
 import { SearchInput } from "../SearchInput";
 import { Menu } from "./Menu";
+import { getFileUrl } from "../../utils/stringUtils";
 
 export const AppHeader = (
   props: React.DetailedHTMLProps<
@@ -36,10 +37,7 @@ export const AppHeader = (
       <div className="flex-space" /> <MessageFilled />
       <Link to="/">
         <Badge count={1}>
-          <Avatar
-            icon={<></>}
-            src={user?.profileImgUrl && `${env.server}${user?.profileImgUrl}`}
-          />
+          <Avatar icon={<></>} src={getFileUrl(user?.profileImgUrl)} />
         </Badge>
       </Link>
       <Menu

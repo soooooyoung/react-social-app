@@ -11,9 +11,11 @@ import {
 } from "../../api/post";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../app/redux/authSlice";
+import { selectComment, setComment } from "../../app/redux/commentSlice";
 import { selectPost, setPost, resetPost } from "../../app/redux/postSlice";
 import { Post } from "../../models";
 import { showErrorModal } from "../../utils/responseUtils";
+import { CommentCard } from "./CommentCard";
 import { PostCard } from "./PostCard";
 
 interface Props {
@@ -23,10 +25,12 @@ interface Props {
 export const PostList = ({ currentId }: Props) => {
   const dispatch = useAppDispatch();
   const post = useAppSelector(selectPost);
+  const comment = useAppSelector(selectComment);
   const userId = useAppSelector(selectAuth).user?.userId;
   const { t } = useTranslation();
   const { data, refetch } = useFetchAllPosts(currentId);
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [commentMode, setCommentMode] = useState<boolean>(true);
   const { mutateAsync: savePostAsync } = useSavePost(userId);
   const { mutateAsync: updatePostAsync } = useUpdatePost(userId);
   const { mutateAsync: deletePostAsync } = useDeletePost(userId);
@@ -122,6 +126,11 @@ export const PostList = ({ currentId }: Props) => {
     }
   };
 
+  const handleClickCommentButton = (mode: boolean, postId?: number) => {
+    dispatch(setComment({ postId }));
+    setCommentMode(commentMode ? mode : true);
+  };
+
   const isValidContent = (text?: string) => {
     if (!text || text.replace(/\s/g, "").length < 1 || text === undefined) {
       return false;
@@ -154,24 +163,32 @@ export const PostList = ({ currentId }: Props) => {
         </div>
       )}
       {data?.map((item, idx) => (
-        <PostCard
-          item={item}
-          key={idx}
-          editMode={editMode && item.postId === post.postId}
-          onToggleEdit={() => {
-            handleClickEditButton(item);
-          }}
-          onToggleLike={() => {
-            handleClickLikeButton(item);
-          }}
-          onDelete={() => {
-            if (item.postId) handleDeletePost(item.postId);
-          }}
-          onChange={(post) => {
-            handleChangePostInput(post);
-          }}
-        />
-      ))}
+        <>
+          <PostCard
+            item={item}
+            key={idx}
+            editMode={editMode && item.postId === post.postId}
+            onToggleEdit={() => {
+              handleClickEditButton(item);
+            }}
+            onToggleLike={() => {
+              handleClickLikeButton(item);
+            }}
+            onToggleComment={(mode) => {
+              handleClickCommentButton(mode, item.postId);
+            }}
+            onDelete={() => {
+              if (item.postId) handleDeletePost(item.postId);
+            }}
+            onChange={(post) => {
+              handleChangePostInput(post);
+            }}
+          />
+          {commentMode && comment.postId === item.postId && (
+            <CommentCard postId={item.postId} />
+          )}
+        </>
+      ))}{" "}
     </div>
   );
 };
