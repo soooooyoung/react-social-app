@@ -1,5 +1,6 @@
 export type { User } from "./User";
 export type { Post, PostStatus } from "./Post";
+export type { Like } from "./Like";
 export type { Comment } from "./Comment";
 export type { Auth } from "./Auth";
 export type { Friendship, Friend } from "./Friendship";

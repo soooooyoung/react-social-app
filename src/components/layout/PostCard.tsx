@@ -8,6 +8,9 @@ import {
   LockOutlined,
   TeamOutlined,
   CheckOutlined,
+  HeartFilled,
+  LikeFilled,
+  CommentOutlined,
 } from "@ant-design/icons";
 import { Card, Input } from "antd";
 import { Post } from "../../models";
@@ -15,12 +18,14 @@ import { PostStatusIcon } from "./PostStatusIcon";
 import { Selector } from "./Selector";
 import { useAppSelector } from "../../app/hooks";
 import { selectPost } from "../../app/redux/postSlice";
+import { selectAuth } from "../../app/redux/authSlice";
 
 interface Props {
   item: Post;
   idx?: string | number;
   editMode?: boolean;
   onToggleEdit?: () => void;
+  onToggleLike?: () => void;
   onDelete?: () => void;
   onSave?: () => void;
   onChange?: (post: Post) => void;
@@ -37,14 +42,20 @@ export const PostCard = ({
   item,
   idx,
   onToggleEdit,
+  onToggleLike,
   onDelete,
   onChange,
   onSave,
 }: Props) => {
   const post = useAppSelector(selectPost);
+  const userId = useAppSelector(selectAuth).user?.userId;
 
   const handleToggleEdit = () => {
     if (onToggleEdit) onToggleEdit();
+  };
+
+  const handleToggleLike = () => {
+    if (onToggleLike) onToggleLike();
   };
 
   const handleChange = (post: Post) => {
@@ -73,7 +84,6 @@ export const PostCard = ({
                 justifyContent: "center",
               }}
               onSelect={(value) => {
-                console.log(value);
                 handleChange({
                   ...item,
                   statusCode: value as Post["statusCode"],
@@ -89,8 +99,15 @@ export const PostCard = ({
           )
         }
         actions={[
-          <LikeOutlined key="like" />,
-          // <CommentOutlined key="comment"  />,
+          <div key="like" onClick={handleToggleLike}>
+            {item.likedIds?.length}{" "}
+            {item.likedIds?.find((id) => id === userId) ? (
+              <LikeFilled />
+            ) : (
+              <LikeOutlined />
+            )}
+          </div>,
+          <CommentOutlined key="comment" />,
           editMode ? (
             <CheckOutlined key="edit" onClick={handleToggleEdit} />
           ) : (

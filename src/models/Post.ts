@@ -7,4 +7,6 @@ export interface Post {
   updated_date?: string;
   content?: string;
   statusCode?: PostStatus;
+  // merged
+  likedIds?: number[];
 }

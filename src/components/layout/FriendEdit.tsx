@@ -78,7 +78,6 @@ export const FriendEdit = ({ user }: Props) => {
 
   const handleSearchFriend = (value?: string) => {
     if (value) {
-      console.log(value);
       setKeyword(value);
     }
   };

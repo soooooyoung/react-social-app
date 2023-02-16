@@ -2,6 +2,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { Card, Input, Button } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSaveLike, useDeleteLike } from "../../api/like";
 import {
   useFetchAllPosts,
   useSavePost,
@@ -22,11 +23,13 @@ export const PostList = ({ userId }: Props) => {
   const dispatch = useAppDispatch();
   const post = useAppSelector(selectPost);
   const { t } = useTranslation();
-  const { data } = useFetchAllPosts(userId);
+  const { data, refetch } = useFetchAllPosts(userId);
   const [editMode, setEditMode] = useState<boolean>(false);
   const { mutateAsync: savePostAsync } = useSavePost(userId);
   const { mutateAsync: updatePostAsync } = useUpdatePost(userId);
   const { mutateAsync: deletePostAsync } = useDeletePost(userId);
+  const { mutateAsync: saveLikeAsync } = useSaveLike(userId);
+  const { mutateAsync: deleteLikeAsync } = useDeleteLike(userId);
 
   const handleChangePostInput = (post: Post) => {
     dispatch(setPost(post));
@@ -69,6 +72,31 @@ export const PostList = ({ userId }: Props) => {
     });
   };
 
+  const handleLikePost = async (postId: number) => {
+    await saveLikeAsync(
+      { postId },
+      {
+        onError: (e) => {
+          showErrorModal(e.message);
+        },
+        onSuccess: () => {
+          refetch();
+        },
+      }
+    );
+  };
+
+  const handleUnlikePost = async (postId: number) => {
+    await deleteLikeAsync(postId, {
+      onError: (e) => {
+        showErrorModal(e.message);
+      },
+      onSuccess: () => {
+        refetch();
+      },
+    });
+  };
+
   const handleClickEditButton = async (selectedPost: Post) => {
     if (editMode) {
       await handleUpdatePost();
@@ -77,6 +105,18 @@ export const PostList = ({ userId }: Props) => {
     } else {
       dispatch(setPost(selectedPost));
       setEditMode(true);
+    }
+  };
+
+  const handleClickLikeButton = async (selectedPost: Post) => {
+    const postId = selectedPost.postId;
+    if (!postId) {
+      return;
+    }
+    if (selectedPost.likedIds?.find((id) => id === userId)) {
+      await handleUnlikePost(postId);
+    } else {
+      await handleLikePost(postId);
     }
   };
 
@@ -116,6 +156,9 @@ export const PostList = ({ userId }: Props) => {
           editMode={editMode && item.postId === post.postId}
           onToggleEdit={() => {
             handleClickEditButton(item);
+          }}
+          onToggleLike={() => {
+            handleClickLikeButton(item);
           }}
           onDelete={() => {
             if (item.postId) handleDeletePost(item.postId);
