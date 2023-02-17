@@ -30,9 +30,6 @@
 ✔️ Handle log-in, log-out process  
 ✔️ Cookie Handled with HTTP only
 
-- Utilize Session Id to fetch Recent Logins
-- Enable SNS Login
-
 ### Signup Page
 
 ✔️ Add Google ReCAPTCHA  
@@ -48,8 +45,6 @@
 ✔️ Add, Delete Friends  
 ✔️ Like, comments on posts
 
-- Infinite scroll with Intersection Observer API
-
 ### Deployment
 
 ✔️ Purchase, connect DNS  
@@ -60,8 +55,12 @@
 
 ✔️ Change language of application
 
-- Chat Service
-- Notification Service
+### Postponed until Server Completion
+
+🕓 Chat Service  
+🕓 Notification Service  
+🕓 Session Id to fetch Recent Logins  
+🕓 SNS Login
 
 ## Functionality
 
@@ -84,6 +83,10 @@
 ### Edit, Upload, Delete Profile Image
 
 ![](prev_picture.gif)
+
+### Like, Unlike, Comment on Post
+
+![](prev_comment.gif)
 
 ## Implementations
 
