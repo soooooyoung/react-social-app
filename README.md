@@ -1,6 +1,6 @@
 # SNSUS - React Social Media App (FE)
 
-[See Site](https://snsus.click/)
+[Click to Visit Site (https://snsus.click/)](https://snsus.click/)
 
 ## Built With
 
@@ -14,7 +14,7 @@
 - [Redux Persist](https://www.npmjs.com/package/redux-persist)
 - [DayJS](https://day.js.org/)
 
-## Project Timeline
+## Project Timeline (12.26.2022 ~ 02.17.2023)
 
 ### Project Data, Folder Structures and Utilities
 
