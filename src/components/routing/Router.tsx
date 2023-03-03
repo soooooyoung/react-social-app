@@ -1,5 +1,7 @@
 import { Navigate, Route } from "react-router-dom";
 import { HomePage, SigninPage, SignupPage } from "../../pages";
+import { ChatListPage } from "../../pages/ChatListPage";
+import { ChatRoomPage } from "../../pages/ChatRoomPage";
 import { PrivacyPage } from "../../pages/PrivacyPage";
 import { SignupEmailPage } from "../../pages/SignupEmailPage";
 import { TermsPage } from "../../pages/TermsPage";
@@ -19,6 +21,14 @@ export const Router = () => {
         path="/home"
         element={<PrivateRoute component={<HomePage />} />}
         errorElement={<>Oops! Something went wrong.</>}
+      />
+      <Route
+        path="/chatroom"
+        element={<PrivateRoute component={<ChatListPage />} />}
+      />
+      <Route
+        path="/chatroom/:id"
+        element={<PrivateRoute component={<ChatRoomPage />} />}
       />
       <Route
         path="/login"

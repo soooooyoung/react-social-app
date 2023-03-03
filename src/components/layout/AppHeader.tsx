@@ -31,10 +31,13 @@ export const AppHeader = (
   return (
     <div {...props}>
       <Link to="/">
-        <img src={"/logo192.png"} alt="S" />{" "}
+        <img src={"/logo192.png"} alt="S" />
       </Link>
       <SearchInput />
-      <div className="flex-space" /> <MessageFilled />
+      <div className="flex-space" />
+      <Link to="/chatroom">
+        <MessageFilled />
+      </Link>
       <Link to="/">
         <Badge count={1}>
           <Avatar icon={<></>} src={getFileUrl(user?.profileImgUrl)} />

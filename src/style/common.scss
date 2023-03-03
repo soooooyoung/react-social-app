@@ -25,6 +25,10 @@ span {
 .bold {
   font-weight: 800;
 }
+.title {
+  text-align: center;
+  width: 100%;
+}
 
 /**
 *components
@@ -92,6 +96,16 @@ span {
   white-space: "pre-wrap";
   resize: "none";
 }
+
+.horizontal {
+  display: flex;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
 .item {
   display: flex;
   align-items: center;
