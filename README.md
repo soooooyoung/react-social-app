@@ -56,6 +56,7 @@
 ### Common
 
 ✔️ Change language of application
+✔️ Chat Room Service For All Users
 
 ### Postponed until Server Completion
 
