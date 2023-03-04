@@ -36,7 +36,7 @@ export const CommentCard = ({ postId }: Props) => {
   const handleDeleteComment = async (commentId?: number) => {
     await deleteCommentAsync(`${userId}/${commentId}`);
   };
-  console.log(data);
+
   return (
     <div className="card-wrapper">
       <Card className="card">

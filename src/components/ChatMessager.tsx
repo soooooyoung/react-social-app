@@ -1,3 +1,4 @@
+import { MessageOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { ChangeEvent, useState } from "react";
 import { Socket } from "socket.io-client";
@@ -35,6 +36,9 @@ export const ChatMessager = ({ socket }: Props) => {
       onPressEnter={handleSendMessage}
       value={inputValue}
       onChange={handleChangeInputValue}
+      suffix={
+        <MessageOutlined className="ui-icon" onClick={handleSendMessage} />
+      }
     />
   );
 };

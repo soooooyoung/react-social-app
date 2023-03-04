@@ -1,4 +1,5 @@
-import { Spin } from "antd";
+import { TeamOutlined } from "@ant-design/icons";
+import { Spin, Tooltip } from "antd";
 import { useEffect, useState, useRef } from "react";
 import { Socket } from "socket.io-client";
 import { ChatLog } from "../models";
@@ -11,6 +12,7 @@ interface Props {
 export const ChatLogManager = ({ socket }: Props) => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [chatlogs, setChatLogs] = useState<ChatLog[]>([]);
+  const [particpants, setParticpants] = useState<string[]>([]);
   const ref = useRef<HTMLDivElement>(null);
 
   // Define Event Handlers
@@ -29,7 +31,6 @@ export const ChatLogManager = ({ socket }: Props) => {
    * @param chatLog announcement ChatLog
    */
   const handleLeaveRoom = (chatLog: ChatLog) => {
-    console.log("left", chatLog);
     setChatLogs((prev) => [...prev, chatLog]);
   };
 
@@ -38,7 +39,6 @@ export const ChatLogManager = ({ socket }: Props) => {
    * @param chatlog announcement ChatLog
    */
   const handleJoinRoom = (chatLog: ChatLog) => {
-    console.log("joined", chatLog);
     setChatLogs((prev) => [...prev, chatLog]);
   };
 
@@ -48,6 +48,13 @@ export const ChatLogManager = ({ socket }: Props) => {
    */
   const handleMessageSuccess = (chatlog: ChatLog) => {
     setChatLogs((prev) => [...prev, chatlog]);
+  };
+  /**
+   * Retrieve participants in room
+   * @param chatlog message ChatLog
+   */
+  const handleParicipants = (users: string[]) => {
+    setParticpants(users);
   };
 
   // Scroll to bottom for new chat
@@ -65,6 +72,7 @@ export const ChatLogManager = ({ socket }: Props) => {
     socket.on("join_fail", handleDisconnect);
     socket.on("leave_success", handleLeaveRoom);
     socket.on("message_success", handleMessageSuccess);
+    socket.on("participants", handleParicipants);
     socket.on("disconnect", handleDisconnect);
 
     return () => {
@@ -74,6 +82,7 @@ export const ChatLogManager = ({ socket }: Props) => {
       socket.off("join_fail", handleDisconnect);
       socket.off("leave_success", handleLeaveRoom);
       socket.off("message_success", handleMessageSuccess);
+      socket.off("participants", handleParicipants);
       socket.off("disconnect", handleDisconnect);
     };
   }, [socket]);
@@ -103,7 +112,24 @@ export const ChatLogManager = ({ socket }: Props) => {
           <div ref={ref} />
         </Spin>
       </div>
-      <ChatMessager socket={socket} />
+
+      <div className="horizontal">
+        <ChatMessager socket={socket} />
+        <Tooltip
+          showArrow={false}
+          color="#ffb3c1"
+          title={
+            <div className="vertical">
+              <span className="title bold">Participants</span>
+              {particpants.map((item, idx) => (
+                <div key={idx}>{item}</div>
+              ))}
+            </div>
+          }
+        >
+          <TeamOutlined className="ui-icon" />
+        </Tooltip>
+      </div>
     </div>
   );
 };
