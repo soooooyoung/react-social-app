@@ -18,18 +18,28 @@ export const ChatLogManager = ({ socket }: Props) => {
     setIsConnected(true);
     socket.emit("join");
   };
+
   const handleDisconnect = () => {
     setIsConnected(false);
     socket.removeAllListeners();
   };
 
   /**
+   * Retrieve successfully left user from server
+   * @param chatLog announcement ChatLog
+   */
+  const handleLeaveRoom = (chatLog: ChatLog) => {
+    console.log("left", chatLog);
+    setChatLogs((prev) => [...prev, chatLog]);
+  };
+
+  /**
    * Retrieve successfully joined user from server
    * @param chatlog announcement ChatLog
    */
-  const handleJoinRoom = (chatlog: ChatLog) => {
-    console.log("joined", chatlog);
-    setChatLogs((prev) => [...prev, chatlog]);
+  const handleJoinRoom = (chatLog: ChatLog) => {
+    console.log("joined", chatLog);
+    setChatLogs((prev) => [...prev, chatLog]);
   };
 
   /**
@@ -51,16 +61,18 @@ export const ChatLogManager = ({ socket }: Props) => {
 
     socket.on("connect", handleConnect);
     socket.on("reconnect", handleConnect);
-    socket.on("disconnect", handleDisconnect);
     socket.on("join_success", handleJoinRoom);
     socket.on("join_fail", handleDisconnect);
+    socket.on("leave_success", handleLeaveRoom);
     socket.on("message_success", handleMessageSuccess);
+    socket.on("disconnect", handleDisconnect);
 
     return () => {
       socket.off("connect", handleConnect);
       socket.off("reconnect", handleConnect);
       socket.off("join_success", handleJoinRoom);
       socket.off("join_fail", handleDisconnect);
+      socket.off("leave_success", handleLeaveRoom);
       socket.off("message_success", handleMessageSuccess);
       socket.off("disconnect", handleDisconnect);
     };

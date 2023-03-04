@@ -20,9 +20,10 @@ export const ChatRoomPage = () => {
     setSocket(newSocket);
 
     return () => {
+      newSocket.emit("leave");
       newSocket.close();
     };
-  }, [roomId]);
+  }, [roomId, username]);
 
   return (
     <div className="page vertical">
