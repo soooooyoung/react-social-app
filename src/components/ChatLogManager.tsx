@@ -69,25 +69,26 @@ export const ChatLogManager = ({ socket }: Props) => {
   return (
     <div className="vertical flex-space chatbox">
       <div className="flex-space chatbox">
-        {chatlogs.map((item, idx) => {
-          if (item.type === "announcement") {
+        <Spin spinning={!isConnected}>
+          {chatlogs.map((item, idx) => {
+            if (item.type === "announcement") {
+              return (
+                <div className="horizontal light" key={idx}>
+                  {item.message} | {item.time}
+                </div>
+              );
+            }
             return (
-              <div className="horizontal light" key={idx}>
-                {item.message} | {item.time}
+              <div className="horizontal" key={idx}>
+                <span className="bold">{item.username}: </span>
+                <span>{item.message}</span>
+                <span className="light">| {item.time}</span>
               </div>
             );
-          }
-          return (
-            <div className="horizontal" key={idx}>
-              <span className="bold">{item.username}: </span>
-              <span>{item.message}</span>
-              <span className="light">| {item.time}</span>
-            </div>
-          );
-        })}
-        <div ref={ref} />
+          })}
+          <div ref={ref} />
+        </Spin>
       </div>
-
       <ChatMessager socket={socket} />
     </div>
   );

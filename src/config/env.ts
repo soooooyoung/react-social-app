@@ -7,4 +7,5 @@ export const env = {
     recaptcha: process.env.REACT_APP_GOOGLE_RECAPTCHA_KEY,
   },
   server: process.env.REACT_APP_SERVER,
+  socket: process.env.REACT_APP_SOCKET,
 };

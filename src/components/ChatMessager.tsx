@@ -30,6 +30,7 @@ export const ChatMessager = ({ socket }: Props) => {
 
   return (
     <Input
+      disabled={!socket.connected}
       maxLength={200}
       onPressEnter={handleSendMessage}
       value={inputValue}
