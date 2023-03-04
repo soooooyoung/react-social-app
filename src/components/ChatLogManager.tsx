@@ -83,10 +83,12 @@ export const ChatLogManager = ({ socket }: Props) => {
       <div className="flex-space chatbox">
         <Spin spinning={!isConnected}>
           {chatlogs.map((item, idx) => {
+            const localTime = new Date(item.time).toLocaleTimeString();
+
             if (item.type === "announcement") {
               return (
                 <div className="horizontal light" key={idx}>
-                  {item.message} | {item.time}
+                  {item.message} | {localTime}
                 </div>
               );
             }
@@ -94,7 +96,7 @@ export const ChatLogManager = ({ socket }: Props) => {
               <div className="horizontal" key={idx}>
                 <span className="bold">{item.username}: </span>
                 <span>{item.message}</span>
-                <span className="light">| {item.time}</span>
+                <span className="light">| {localTime}</span>
               </div>
             );
           })}

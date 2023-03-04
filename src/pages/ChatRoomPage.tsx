@@ -13,6 +13,7 @@ export const ChatRoomPage = () => {
 
   useEffect(() => {
     const newSocket = io(`${env.socket}/room`, {
+      path: "/ws/",
       withCredentials: true,
       query: { username: username || "unknown", roomId },
     });

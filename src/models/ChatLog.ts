@@ -1,5 +1,5 @@
 export interface ChatLog {
-  time: string;
+  time: Date;
   message: string;
   username: string;
   type: "message" | "announcement";
