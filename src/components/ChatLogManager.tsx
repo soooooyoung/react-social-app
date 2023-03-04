@@ -2,6 +2,7 @@ import { Spin } from "antd";
 import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 import { ChatLog } from "../models";
+import { ChatMessager } from "./ChatMessager";
 
 interface Props {
   socket: Socket;
@@ -14,6 +15,7 @@ export const ChatLogManager = ({ socket }: Props) => {
   // Define Event Handlers
   const handleConnect = () => {
     setIsConnected(true);
+    socket.emit("join");
   };
   const handleDisconnect = () => {
     setIsConnected(false);
@@ -25,10 +27,10 @@ export const ChatLogManager = ({ socket }: Props) => {
   };
 
   /**
-   * Retrieve saved message from server
+   * Retrieve successfully sent message from server
    * @param chatlog saved ChatLog
    */
-  const handleSaveMessage = (chatlog: ChatLog) => {
+  const handleMessageSuccess = (chatlog: ChatLog) => {
     console.log("saved", chatlog);
     setChatLogs((prev) => [...prev, chatlog]);
   };
@@ -41,22 +43,25 @@ export const ChatLogManager = ({ socket }: Props) => {
     socket?.on("disconnect", handleDisconnect);
     socket?.on("join_success", handleJoinRoom);
     socket?.on("join_fail", handleDisconnect);
-    socket?.on("message_success", handleSaveMessage);
+    socket?.on("message_success", handleMessageSuccess);
 
     return () => {
       socket?.off("connect", handleConnect);
       socket?.off("reconnect", handleConnect);
-      socket?.off("disconnect", handleDisconnect);
       socket?.off("join_success", handleJoinRoom);
       socket?.off("join_fail", handleDisconnect);
-      socket?.off("message_success", handleSaveMessage);
+      socket?.off("message_success", handleMessageSuccess);
+      socket?.off("disconnect", handleDisconnect);
     };
   });
   return (
     <Spin spinning={!isConnected}>
-      {chatlogs.map((item) => (
-        <div className="item">{item.message}</div>
+      {chatlogs.map((item, idx) => (
+        <div className="item" key={idx}>
+          {item.message}
+        </div>
       ))}
+      <ChatMessager socket={socket} />
     </Spin>
   );
 };

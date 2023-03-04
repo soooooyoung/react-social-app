@@ -1,5 +1,5 @@
-import { Spin } from "antd";
-import TextArea from "antd/es/input/TextArea";
+import { Input } from "antd";
+import { ChangeEvent, useState } from "react";
 import { Socket } from "socket.io-client";
 
 interface Props {
@@ -7,22 +7,33 @@ interface Props {
 }
 
 export const ChatMessager = ({ socket }: Props) => {
+  const [inputValue, setInputValue] = useState<string>("");
+
+  const handleChangeInputValue = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
   /**
    * Create new message to send to server
-   * @param message message property of new chat log
    */
-  const handleSendMessage = (message: string) => {
-    socket.emit("save", message);
+  const handleSendMessage = () => {
+    socket.emit("save", inputValue);
+    setInputValue("");
   };
 
   const handleFailMessage = () => {
     // alert user
     // enable try again prompt
   };
+
   return (
     <div>
-      <button onClick={() => handleSendMessage("fff")}>test</button>
-      <TextArea maxLength={200} />
+      <Input
+        maxLength={200}
+        onPressEnter={handleSendMessage}
+        value={inputValue}
+        onChange={handleChangeInputValue}
+      />
     </div>
   );
 };

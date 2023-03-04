@@ -163,10 +163,9 @@ export const PostList = ({ currentId }: Props) => {
         </div>
       )}
       {data?.map((item, idx) => (
-        <>
+        <div key={idx}>
           <PostCard
             item={item}
-            key={idx}
             editMode={editMode && item.postId === post.postId}
             onToggleEdit={() => {
               handleClickEditButton(item);
@@ -187,8 +186,8 @@ export const PostList = ({ currentId }: Props) => {
           {commentMode && comment.postId === item.postId && (
             <CommentCard postId={item.postId} />
           )}
-        </>
-      ))}{" "}
+        </div>
+      ))}
     </div>
   );
 };

@@ -27,7 +27,7 @@ export const Router = () => {
         element={<PrivateRoute component={<ChatListPage />} />}
       />
       <Route
-        path="/chatroom/:id"
+        path="/chatroom/:roomId"
         element={<PrivateRoute component={<ChatRoomPage />} />}
       />
       <Route
