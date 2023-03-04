@@ -55,12 +55,12 @@
 
 ### Common
 
-✔️ Change language of application
-✔️ Chat Room Service For All Users
+✔️ Change language of application  
+✔️ Chat Room Service For All Users  
+👉 Private Chat Service between Friends  
 
 ### Postponed until Server Completion
 
-🕓 Chat Service  
 🕓 Notification Service  
 🕓 Session Id to fetch Recent Logins  
 🕓 SNS Login
