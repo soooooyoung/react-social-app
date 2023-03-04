@@ -25,6 +25,12 @@ span {
 .bold {
   font-weight: 800;
 }
+.light {
+  font-weight: 400;
+  font-size: 13px;
+  color: $dark-gray;
+}
+
 .title {
   text-align: center;
   width: 100%;
@@ -39,6 +45,18 @@ span {
 
 .content {
   background-color: $gray;
+}
+
+.page {
+  height: calc(100vh - $header-height);
+  max-width: 1200px;
+  margin: auto;
+  padding: $gap;
+  background-color: #ffffff;
+}
+
+.chatbox {
+  overflow-y: auto;
 }
 
 .header {
@@ -99,18 +117,21 @@ span {
 
 .horizontal {
   display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .vertical {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .item {
   display: flex;
   align-items: center;
   padding: 8px;
-  gap: 16px;
+  gap: $gap;
   font-size: 1.2em;
 }
 

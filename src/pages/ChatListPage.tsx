@@ -1,12 +1,24 @@
 import { Link } from "react-router-dom";
 
-export const ChatListPage = () => {
+interface Props {
+  onClick?: () => void;
+}
+
+export const ChatListPage = ({ onClick }: Props) => {
+  const handleOnClick = () => {
+    if (onClick) onClick();
+  };
+
   return (
-    <div>
-      <div className="title bold">Chat List</div>
-      <Link to="/chatroom/1">
-        <span>Chat ROOM 0</span>
-      </Link>
+    <div className="page box">
+      <div className="vertical">
+        <Link to="/chatroom/1" onClick={handleOnClick}>
+          <span>Chat ROOM 1</span>
+        </Link>
+        <Link to="/chatroom/2" onClick={handleOnClick}>
+          <span>Chat ROOM 2</span>
+        </Link>
+      </div>
     </div>
   );
 };

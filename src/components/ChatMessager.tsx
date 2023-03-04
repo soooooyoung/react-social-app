@@ -17,7 +17,9 @@ export const ChatMessager = ({ socket }: Props) => {
    * Create new message to send to server
    */
   const handleSendMessage = () => {
-    socket.emit("save", inputValue);
+    if (inputValue !== undefined && inputValue.replace(/\s/g, "").length > 0)
+      socket.emit("save", inputValue);
+
     setInputValue("");
   };
 
@@ -27,13 +29,11 @@ export const ChatMessager = ({ socket }: Props) => {
   };
 
   return (
-    <div>
-      <Input
-        maxLength={200}
-        onPressEnter={handleSendMessage}
-        value={inputValue}
-        onChange={handleChangeInputValue}
-      />
-    </div>
+    <Input
+      maxLength={200}
+      onPressEnter={handleSendMessage}
+      value={inputValue}
+      onChange={handleChangeInputValue}
+    />
   );
 };

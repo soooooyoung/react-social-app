@@ -23,10 +23,6 @@ export const Router = () => {
         errorElement={<>Oops! Something went wrong.</>}
       />
       <Route
-        path="/chatroom"
-        element={<PrivateRoute component={<ChatListPage />} />}
-      />
-      <Route
         path="/chatroom/:roomId"
         element={<PrivateRoute component={<ChatRoomPage />} />}
       />

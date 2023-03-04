@@ -1,5 +1,5 @@
 import { Spin } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Socket } from "socket.io-client";
 import { ChatLog } from "../models";
 import { ChatMessager } from "./ChatMessager";
@@ -11,6 +11,7 @@ interface Props {
 export const ChatLogManager = ({ socket }: Props) => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [chatlogs, setChatLogs] = useState<ChatLog[]>([]);
+  const ref = useRef<HTMLDivElement>(null);
 
   // Define Event Handlers
   const handleConnect = () => {
@@ -22,46 +23,72 @@ export const ChatLogManager = ({ socket }: Props) => {
     socket.removeAllListeners();
   };
 
-  const handleJoinRoom = (roomId: number) => {
-    console.log("joined room: ", roomId);
+  /**
+   * Retrieve successfully joined user from server
+   * @param chatlog announcement ChatLog
+   */
+  const handleJoinRoom = (chatlog: ChatLog) => {
+    console.log("joined", chatlog);
+    setChatLogs((prev) => [...prev, chatlog]);
   };
 
   /**
    * Retrieve successfully sent message from server
-   * @param chatlog saved ChatLog
+   * @param chatlog message ChatLog
    */
   const handleMessageSuccess = (chatlog: ChatLog) => {
-    console.log("saved", chatlog);
     setChatLogs((prev) => [...prev, chatlog]);
   };
 
-  // https://socket.io/how-to/use-with-react-hooks
+  // Scroll to bottom for new chat
+  useEffect(() => {
+    ref.current?.scrollIntoView();
+  }, [chatlogs]);
+
   //  Add Event Handlers
   useEffect(() => {
-    socket?.on("connect", handleConnect);
-    socket?.on("reconnect", handleConnect);
-    socket?.on("disconnect", handleDisconnect);
-    socket?.on("join_success", handleJoinRoom);
-    socket?.on("join_fail", handleDisconnect);
-    socket?.on("message_success", handleMessageSuccess);
+    setChatLogs([]);
+
+    socket.on("connect", handleConnect);
+    socket.on("reconnect", handleConnect);
+    socket.on("disconnect", handleDisconnect);
+    socket.on("join_success", handleJoinRoom);
+    socket.on("join_fail", handleDisconnect);
+    socket.on("message_success", handleMessageSuccess);
 
     return () => {
-      socket?.off("connect", handleConnect);
-      socket?.off("reconnect", handleConnect);
-      socket?.off("join_success", handleJoinRoom);
-      socket?.off("join_fail", handleDisconnect);
-      socket?.off("message_success", handleMessageSuccess);
-      socket?.off("disconnect", handleDisconnect);
+      socket.off("connect", handleConnect);
+      socket.off("reconnect", handleConnect);
+      socket.off("join_success", handleJoinRoom);
+      socket.off("join_fail", handleDisconnect);
+      socket.off("message_success", handleMessageSuccess);
+      socket.off("disconnect", handleDisconnect);
     };
-  });
+  }, [socket]);
+
   return (
-    <Spin spinning={!isConnected}>
-      {chatlogs.map((item, idx) => (
-        <div className="item" key={idx}>
-          {item.message}
-        </div>
-      ))}
+    <div className="vertical flex-space chatbox">
+      <div className="flex-space chatbox">
+        {chatlogs.map((item, idx) => {
+          if (item.type === "announcement") {
+            return (
+              <div className="horizontal light" key={idx}>
+                {item.message} | {item.time}
+              </div>
+            );
+          }
+          return (
+            <div className="horizontal" key={idx}>
+              <span className="bold">{item.username}: </span>
+              <span>{item.message}</span>
+              <span className="light">| {item.time}</span>
+            </div>
+          );
+        })}
+        <div ref={ref} />
+      </div>
+
       <ChatMessager socket={socket} />
-    </Spin>
+    </div>
   );
 };

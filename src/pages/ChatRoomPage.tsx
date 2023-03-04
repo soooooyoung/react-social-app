@@ -4,7 +4,6 @@ import { io, Socket } from "socket.io-client";
 import { useAppSelector } from "../app/hooks";
 import { selectAuth } from "../app/redux/authSlice";
 import { ChatLogManager } from "../components/ChatLogManager";
-import "../style/ChatRoomPage.scss";
 
 export const ChatRoomPage = () => {
   const username = useAppSelector(selectAuth).user?.username;
@@ -12,10 +11,8 @@ export const ChatRoomPage = () => {
   let { roomId } = useParams();
 
   useEffect(() => {
-    // check room exists
-
-    // connect to socket
     const newSocket = io("http://localhost:8080/room", {
+      withCredentials: true,
       query: { username: username || "unknown", roomId },
     });
     setSocket(newSocket);
@@ -23,11 +20,11 @@ export const ChatRoomPage = () => {
     return () => {
       newSocket.close();
     };
-  }, []);
+  }, [roomId]);
 
   return (
-    <div>
-      <div className="title bold">Chat Room</div>
+    <div className="page vertical">
+      <div className="title bold">Chat Room #{roomId}</div>
       {socket && <ChatLogManager socket={socket} />}
     </div>
   );
