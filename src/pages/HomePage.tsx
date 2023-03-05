@@ -25,13 +25,14 @@ export const HomePage = () => {
       path: "/ws/",
       query: { username: user?.username },
       withCredentials: true,
+      multiplex: false,
     });
 
     setSocket(newSocket);
 
     return () => {
       newSocket.emit("leave");
-      newSocket.close();
+      newSocket.disconnect();
     };
   }, [user]);
 
