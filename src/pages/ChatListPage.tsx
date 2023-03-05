@@ -11,11 +11,11 @@ export const ChatListPage = ({ onClick }: Props) => {
 
   return (
     <div className="box">
-      <div className="vertical">
-        <Link to="/chatroom/1" onClick={handleOnClick}>
+      <div className="vertical menu">
+        <Link className="menu-item" to="/chatroom/1" onClick={handleOnClick}>
           <span>Chat ROOM #1</span>
         </Link>
-        <Link to="/chatroom/2" onClick={handleOnClick}>
+        <Link className="menu-item" to="/chatroom/2" onClick={handleOnClick}>
           <span>Chat ROOM #2</span>
         </Link>
       </div>

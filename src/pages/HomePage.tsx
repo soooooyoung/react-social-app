@@ -5,16 +5,35 @@ import { selectAuth } from "../app/redux/authSlice";
 import { PostList } from "../components/layout/PostList";
 import "../style/HomePage.scss";
 import { useNavigate, useParams } from "react-router-dom";
+import { io, Socket } from "socket.io-client";
+import { useState, useEffect } from "react";
+import { env } from "../config/env";
 
 export const HomePage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const userId = useAppSelector(selectAuth).user?.userId;
-  const currentId = Number(id) || userId;
+  const [socket, setSocket] = useState<Socket>();
+  const user = useAppSelector(selectAuth).user;
+  const currentId = Number(id) || user?.userId;
 
   const handleClickFriend = (friendId: number) => {
     if (friendId) navigate(`/${friendId}`);
   };
+
+  useEffect(() => {
+    const newSocket = io(`${env.socket}/private`, {
+      path: "/ws/",
+      query: { username: user?.username },
+      withCredentials: true,
+    });
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.emit("leave");
+      newSocket.close();
+    };
+  }, [user]);
 
   return (
     <div className="home-container">
@@ -23,7 +42,9 @@ export const HomePage = () => {
       </div>
       <PostList currentId={currentId} />
       <div className="sider">
-        <Friendlist onClickFriend={handleClickFriend} />
+        {socket && (
+          <Friendlist onClickFriend={handleClickFriend} socket={socket} />
+        )}
       </div>
     </div>
   );

@@ -29,6 +29,7 @@ span {
 */
 .bold {
   font-weight: 800;
+  color: $dark-gray;
 }
 .light {
   font-weight: 400;
@@ -38,6 +39,8 @@ span {
 
 .title {
   text-align: center;
+  font-family: "Nunito";
+  font-size: 1.5em;
   width: 100%;
 }
 
@@ -123,7 +126,7 @@ span {
 .horizontal {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: $gap;
 }
 
 .vertical {

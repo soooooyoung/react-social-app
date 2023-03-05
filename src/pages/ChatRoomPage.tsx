@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
@@ -8,14 +9,15 @@ import { env } from "../config/env";
 
 export const ChatRoomPage = () => {
   const username = useAppSelector(selectAuth).user?.username;
+  const [connected, setConnected] = useState<boolean>(false);
   const [socket, setSocket] = useState<Socket>();
   let { roomId } = useParams();
 
   useEffect(() => {
     const newSocket = io(`${env.socket}/room`, {
       path: "/ws/",
-      withCredentials: true,
       query: { username: username || "unknown", roomId },
+      withCredentials: true,
     });
 
     setSocket(newSocket);
@@ -27,9 +29,21 @@ export const ChatRoomPage = () => {
   }, [roomId, username]);
 
   return (
-    <div className="page vertical">
-      <div className="title bold">Chat Room #{roomId}</div>
-      {socket && <ChatLogManager socket={socket} />}
-    </div>
+    <Spin
+      // size="large"
+      spinning={!connected}
+      tip="Connecting..."
+    >
+      <div className="page vertical">
+        <div className="title bold">Chat Room #{roomId}</div>
+        {socket && (
+          <ChatLogManager
+            socket={socket}
+            onConnect={() => setConnected(true)}
+            onDisConnect={() => setConnected(false)}
+          />
+        )}
+      </div>
+    </Spin>
   );
 };

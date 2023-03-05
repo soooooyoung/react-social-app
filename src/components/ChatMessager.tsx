@@ -5,9 +5,10 @@ import { Socket } from "socket.io-client";
 
 interface Props {
   socket: Socket;
+  addressee?: string;
 }
 
-export const ChatMessager = ({ socket }: Props) => {
+export const ChatMessager = ({ socket, addressee }: Props) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleChangeInputValue = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +20,7 @@ export const ChatMessager = ({ socket }: Props) => {
    */
   const handleSendMessage = () => {
     if (inputValue !== undefined && inputValue.replace(/\s/g, "").length > 0)
-      socket.emit("save", inputValue);
+      socket.emit("save", { message: inputValue, addressee });
 
     setInputValue("");
   };

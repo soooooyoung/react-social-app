@@ -1,5 +1,6 @@
-import { Avatar, Modal, Popconfirm } from "antd";
+import { Avatar, Drawer, Modal, Popconfirm, Skeleton, Spin } from "antd";
 import {
+  MessageOutlined,
   QuestionCircleFilled,
   UserAddOutlined,
   UserDeleteOutlined,
@@ -8,22 +9,27 @@ import {
 import { useDeleteFriendRequest, useFetchAllFriends } from "../../api/friend";
 import { selectAuth } from "../../app/redux/authSlice";
 import { useAppSelector } from "../../app/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getFileUrl } from "../../utils/stringUtils";
 import { useTranslation } from "react-i18next";
 import { FriendEdit } from "./FriendEdit";
 import "../../style/FriendList.scss";
 import { User } from "../../models";
 import { showErrorModal } from "../../utils/responseUtils";
+import { Socket } from "socket.io-client";
+import { ChatLogManager } from "../ChatLogManager";
 
 interface Props {
+  socket: Socket;
   onClickFriend?: (friendId: number) => void;
 }
 
-export const Friendlist = ({ onClickFriend }: Props) => {
+export const Friendlist = ({ onClickFriend, socket }: Props) => {
   const { t } = useTranslation();
+  const [chatVisible, setChatVisible] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const { user } = useAppSelector(selectAuth);
+  const [currentFriend, setCurrentFriend] = useState<string>("");
   const { data: friends, refetch } = useFetchAllFriends(user?.userId, {
     enabled: !!user?.userId,
   });
@@ -49,6 +55,17 @@ export const Friendlist = ({ onClickFriend }: Props) => {
     setModalVisible(false);
   };
 
+  const handleOpenChat = (addressee: string) => {
+    setCurrentFriend(addressee);
+    socket.emit("join_private", addressee);
+    setChatVisible(true);
+  };
+  const handleCloseChat = () => {
+    socket.emit("leave_private", currentFriend);
+    setCurrentFriend("");
+
+    setChatVisible(false);
+  };
   const handleClickFriend = (friendId: number) => {
     if (onClickFriend) {
       onClickFriend(friendId);
@@ -64,7 +81,7 @@ export const Friendlist = ({ onClickFriend }: Props) => {
       <div className="contacts">
         {friends &&
           friends.map((item, idx) => (
-            <div className="item" key={idx}>
+            <div className="item horizontal" key={idx}>
               <Avatar
                 size="large"
                 icon={<UserOutlined />}
@@ -77,6 +94,10 @@ export const Friendlist = ({ onClickFriend }: Props) => {
                 {item.username}
               </span>
               <div className="flex-space" />
+              <MessageOutlined
+                className="ui-icon"
+                onClick={() => handleOpenChat(item.username)}
+              />
               <Popconfirm
                 overlayStyle={{ position: "fixed" }}
                 showArrow={false}
@@ -101,6 +122,21 @@ export const Friendlist = ({ onClickFriend }: Props) => {
       >
         <FriendEdit user={user} />
       </Modal>
+
+      <Drawer
+        title={<span className="bold">Private Chat with {currentFriend}</span>}
+        placement="bottom"
+        open={chatVisible}
+        onClose={handleCloseChat}
+        closeIcon={null}
+        destroyOnClose
+      >
+        <Skeleton loading={false}>
+          <div style={{ height: "100%", width: "100%", display: "flex" }}>
+            <ChatLogManager socket={socket} addressee={currentFriend} />
+          </div>
+        </Skeleton>
+      </Drawer>
     </div>
   );
 };

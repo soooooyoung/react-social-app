@@ -48,7 +48,9 @@ export const AppHeader = (
       <div className="flex-space" />
       <MessageFilled className="ui-icon" onClick={handleDrawerToggle} />
       <Drawer
-        title="Chat Room List"
+        destroyOnClose
+        closeIcon={null}
+        title={<span className="bold title">Chat Room List</span>}
         placement="right"
         onClose={handleDrawerClose}
         open={drawerOpen}
