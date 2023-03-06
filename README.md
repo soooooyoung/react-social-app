@@ -58,7 +58,7 @@
 
 ✔️ Change language of application  
 ✔️ Chat Room Service For All Users  
-👉 Private Chat Service between Friends  
+✔️ Private Chat Service between Friends  
 
 ### Postponed until Server Completion
 
@@ -92,6 +92,14 @@
 
 ![](prev_comment.gif)
 
+### Join Chat Room
+
+![](prev_chatroom.gif)
+
+### Chat Privately with Friend
+
+![](prev_chatprivate.git)
+
 ## Implementations
 
 ### Log In Process
@@ -118,3 +126,4 @@ Every request sent to server carries HTTP only Cookies to verify its authToken s
 Redux Persist allows states to be saved in multiple storage environments. While values like user input can be subjected to single component, values that are used throughout the application may be better stored persistently (i.e: currently logged in user). Implementing custom solution to persist those values would require extensive time for debugging and standardizing for cross platforms so I have settled on using Redux Persist.
 
 Current logged in user information is saved in Local Storage through Redux Persist. Upon removing user crendentials, current user information is reset.
+
