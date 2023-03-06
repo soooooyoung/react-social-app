@@ -15,6 +15,7 @@
 - [react-i18next](https://react.i18next.com/)
 - [Redux Persist](https://www.npmjs.com/package/redux-persist)
 - [DayJS](https://day.js.org/)
+- [SocketIO](https://socket.io/)
 
 ## Project Timeline (12.26.2022 ~ 02.17.2023)
 
