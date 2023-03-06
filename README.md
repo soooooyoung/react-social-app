@@ -98,7 +98,7 @@
 
 ### Chat Privately with Friend
 
-![](prev_chatprivate.git)
+![](prev_chatprivate.gif)
 
 ## Implementations
 
