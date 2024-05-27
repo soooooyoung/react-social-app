@@ -1,9 +1,6 @@
 # SNSUS - React Social Media App (FE)
 
-[Click to Visit Site (클릭시 사이트 이동) (https://snsus.click/)](https://snsus.click/)
-
-로그인 정보를 요청하여 테스트 해보실 수 있습니다.
-데이터 비용 절감의 사유로 회원가입은 현재 막아 놓았습니다. 
+[Click to Visit Site (클릭시 사이트 이동) (https://shanabuddy.online/)](https://shanabuddy.online/)
 
 ## Built With
 
