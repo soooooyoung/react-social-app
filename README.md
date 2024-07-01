@@ -1,4 +1,4 @@
-# SNSUS - React Social Media App (FE)
+# Shanabuddy - React Social Media App (FE)
 
 [Click to Visit Site (클릭시 사이트 이동) (https://shanabuddy.online/)](https://shanabuddy.online/)
 
